@@ -7,7 +7,7 @@
   padding: 0%;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-app-root {
+html {
   height: 100vh;
   box-sizing: border-box;
 }
@@ -15,10 +15,7 @@ app-root {
 body {  color: #bfe654;
   box-sizing: border-box;  }
 
-.logo{
-  width: 15rem;
 
-}
 h1,
 h2,
 h3,
