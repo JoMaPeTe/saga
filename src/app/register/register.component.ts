@@ -33,20 +33,19 @@ export class RegisterComponent implements OnInit {
   tryRegister(value: any) {
     this.afAuth
       .doRegister(value)
-      .then((user) =>{
+      .then((user) => {
         this.afAuth.authUser = user.user;
 
-
-          this.toastr.success(
-            'Hemos enviado un correo de verificacion a ' +
-              user.user.email +
-              ' Compruebe su correo antes entrar',
-            'Gracias por registrarse'), {
-              timeOut: 10000,
-            }
-
-         }
-        )
+        this.toastr.success(
+          'Hemos enviado un correo de verificacion a ' +
+            user.user.email +
+            ' Compruebe su correo antes entrar',
+          'Gracias por registrarse'
+        ),
+          {
+            timeOut: 10000,
+          };
+      })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
           //alert('Contraseña no válida');
@@ -60,7 +59,7 @@ export class RegisterComponent implements OnInit {
         } else if (error.code === 'auth/invalid-email') {
           //alert('Formato de email no valido');
           this.toastr.error('Formato de email no válido', 'ERROR REGISTRO');
-        }else{
+        } else {
           console.log(error);
         }
       });
