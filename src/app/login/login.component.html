@@ -1,0 +1,68 @@
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-content">
+    <form  method="post" [formGroup]="loginForm">
+      <div class="modal-header">
+        <h1 class="header modal-title" >Login</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="login-email">Email address</label>
+          <input
+            type="email"
+            #loginEmail id="login-email"
+            formControlName="email"
+            class="form-control"
+
+          />
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input
+            type="password"
+            id="login-password"
+            class="form-control"
+            formControlName="password"
+            minLength="8"
+          />
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="submit"
+          (click)="tryLogin(loginForm.value)"
+          class="btn btn-primary  "
+          data-bs-dismiss="modal"
+        >
+          Login
+        </button>
+
+
+        <button
+          type="button"
+          class="btn btn-danger btn-block  "
+          data-bs-dismiss="modal"
+          (click)="tryGoogleLogin()"
+        >
+          Login with Google
+        </button>
+
+
+        <p class="text-center">
+          No account yet?
+          <a class="link-warning fw-bold" data-bs-toggle="modal"
+          data-bs-target="#registerModal" data-bs-dismiss="modal" role="button">Create an account</a>
+        </p>
+      </div>
+
+    </form>
+
+  </div>
+</div>

@@ -1,38 +1,62 @@
+
+
+<!-- //////////////////////////////// -->
+
+<div class="container mx-auto">
+
+
+  <h3 class="text-center mt-20 text-warning" >Bienvenido</h3>
+
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></li>
-    <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></li>
-    <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="./assets/imagenes/silueta.jpg" class="d-block w-50" alt="silueta">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-      </div>
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+  </div>
+
+  <div class="carousel-inner  ">
+
+    <div class="carousel-item active bg-transparent  " data-pause="hover" data-keyboard="true" data-bs-interval="2000">
+          <img src="./assets/imagenes/silueta.jpg" class=" d-inline img-fluid ps-2 rounded-circle " alt="silueta">
+          <div class="container">
+            <div class="carousel-caption   text-dark fw-bolder  ">
+                <h3>Actividades deportivas</h3>
+                <p>Visita nuestras instalaciones</p>
+            </div>
+          </div>
     </div>
-    <div class="carousel-item" style="background-color: aquamarine;">
-      <img src="./assets/imagenes/raqueta.jpg" class="d-block w-50" alt="raqueta">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+      <div class="carousel-item bg-transparent  " data-bs-interval="20000">
+
+            <img src="./assets/imagenes/raqueta.jpg" class="d-block img-fluid ps-2 rounded-circle " alt="raqueta">
+
+
+                <div class="carousel-caption  d-inline-block d-md-block text-dark fw-bolder">
+                  <h3>Deportes de pista</h3>
+                  <p>Mantente en forma jugando tenis y padel</p>
+                </div>
+
       </div>
-    </div>
-    <div class="carousel-item">
-      <img src="./assets/imagenes/pelota.png" class="d-block w-50" alt="pelota">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Third slide label</h5>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+
+
+
+    <div class="carousel-item bg-transparent " data-bs-interval="20000">
+      <img src="./assets/imagenes/bot.jpg" class="d-block img-fluid  ps-2 rounded-circle " alt="pelota">
+      <div class="carousel-caption d-none d-md-block  text-dark fw-bolder">
+        <h3>Experiencia de usuario</h3>
+        <p>Reserva tu actividad chateando con Jarvis.</p>
       </div>
     </div>
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-bs-slide="prev">
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-bs-slide="next">
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
-  </a>
+  </button>
+</div>
+
 </div>
