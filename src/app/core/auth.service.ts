@@ -4,17 +4,22 @@ import { map } from 'rxjs/operators';
 import firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { FireDBService } from './fire-db.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   authUser: any = null;
-
+  actionCodeSettings = {
+    url: 'https://saga-1f81f.web.app/',
+ };
   constructor(
     public afAuth: AngularFireAuth, //atributo publico de la clase del tipo AngularFireAuth
     private router: Router,
-    private firedb: FireDBService
+    private firedb: FireDBService,
+    private toastr: ToastrService,
+
   ) {}
 
   //Observador para asegurar que la autenticación no está en proceso
@@ -35,8 +40,19 @@ export class AuthService {
   // var actionCodeSettings = {
   //   url: 'http://localhost:4200/',
   // };
-
-  async doRegister(value) {
+resendVerification(){
+  this.authUser.sendEmailVerification(this.actionCodeSettings).then(() => {
+       this.toastr.success(
+      'Hemos enviado un correo de verificacion a ' +
+      this.authUser.email ,
+      'Compruebe su correo antes entrar'
+    ),
+      {
+        timeOut: 10000,
+      };
+  }).then(() => {this.logout()});
+}
+  doRegister(value) {
     //createUserWithEmailAndPassword comprueba formato email y contraseña (6 caracteres mínimo)
     //Si es correcto devuelve objeto user
     //Documentacion https://firebase.google.com/docs/auth/web/password-auth#create_a_password-based_account
@@ -45,13 +61,11 @@ export class AuthService {
         .createUserWithEmailAndPassword(value.email, value.password)
         .then(
           (user) => {
-            var actionCodeSettings = {
-                url: 'https://saga-1f81f.web.app/',
-             };
+
             this.authUser = user.user;
             console.log('user logado con mail: ', user.user.email);
             console.log(user.user.emailVerified);
-            user.user.sendEmailVerification(actionCodeSettings);
+            user.user.sendEmailVerification(this.actionCodeSettings);
 
             resolve(user);
           },
