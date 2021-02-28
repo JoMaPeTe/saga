@@ -8,6 +8,24 @@ export class FireDBService {
 
   constructor(private db: AngularFireDatabase)  { }
 
+
+
+
+
+  makeAdmin(user:any){
+    const path = 'admins/' + user.key;
+    const u = {
+      email: user.email
+    }
+    this.db.object(path).update(u)
+    .catch( error => console.log(error));
+  }
+  removeAdmin(userUid: any){
+    const path = 'admins/' + userUid;
+    return this.db.object(path).remove();
+  }
+
+
   updateUserData(user: any){
     console.log('user: ', user);
     const path = 'users/' + user.uid;
@@ -23,6 +41,10 @@ export class FireDBService {
     const path = 'users/';
     //return this.db.list(path).valueChanges();
     return this.db.list(path).snapshotChanges();
+  }
+  getAdmins(){
+    const path ="admins/";
+    return this.db.list(path).snapshotChanges()
   }
 
   removeUser(userUid: any){

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../core/auth.service';
 import { FireDBService } from '../core/fire-db.service';
 
 @Component({
@@ -8,9 +9,15 @@ import { FireDBService } from '../core/fire-db.service';
 })
 export class UserComponent implements OnInit {
   users : any = [];
-  constructor(public db: FireDBService) { }
+
+  constructor(public db: FireDBService,
+    public auth: AuthService) { }
 
   ngOnInit(): void {
+    this.fillUsers();
+  }
+
+  fillUsers(){
     this.db.getUsers().subscribe( snap => {
       this.users = [];
       snap.forEach ( u => {
@@ -24,5 +31,4 @@ export class UserComponent implements OnInit {
     console.log('users: ', this.users);
     })
   }
-
 }

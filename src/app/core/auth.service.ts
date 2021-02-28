@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { map } from 'rxjs/operators';
 import firebase from 'firebase/app';
@@ -9,19 +9,22 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnInit {
   authUser: any = null;
+  arrayAdmins: any[] = [];
+
   actionCodeSettings = {
     url: 'https://saga-1f81f.web.app/',
- };
+  };
   constructor(
     public afAuth: AngularFireAuth, //atributo publico de la clase del tipo AngularFireAuth
     private router: Router,
     private firedb: FireDBService,
-    private toastr: ToastrService,
-
+    private toastr: ToastrService
   ) {}
-
+  ngOnInit(): void {
+    this.arrayAdmins = [''];
+  }
   //Observador para asegurar que la autenticación no está en proceso
   //Si esta logado, authuser no será null
   user: any = this.afAuth.authState.pipe(
@@ -40,18 +43,27 @@ export class AuthService {
   // var actionCodeSettings = {
   //   url: 'http://localhost:4200/',
   // };
-resendVerification(){
-  this.authUser.sendEmailVerification(this.actionCodeSettings).then(() => {
-       this.toastr.success(
-      'Hemos enviado un correo de verificacion a ' +
-      this.authUser.email ,
-      'Compruebe su correo antes entrar'
-    ),
-      {
-        timeOut: 10000,
-      };
-  }).then(() => {this.logout()});
-}
+  resendVerification() {
+    this.authUser
+      .sendEmailVerification(this.actionCodeSettings)
+      .then(() => {
+        this.toastr.success(
+          'Hemos enviado un correo de verificacion a ' + this.authUser.email,
+          'Compruebe su correo antes entrar'
+        ),
+          {
+            timeOut: 10000,
+          };
+      })
+      .then(() => {
+        this.logout();
+      });
+  }
+
+  /**
+   * Registro con usuario y contraseña y manda email de verificacion
+   * @param value
+   */
   doRegister(value) {
     //createUserWithEmailAndPassword comprueba formato email y contraseña (6 caracteres mínimo)
     //Si es correcto devuelve objeto user
@@ -61,7 +73,6 @@ resendVerification(){
         .createUserWithEmailAndPassword(value.email, value.password)
         .then(
           (user) => {
-
             this.authUser = user.user;
             console.log('user logado con mail: ', user.user.email);
             console.log(user.user.emailVerified);
@@ -84,13 +95,16 @@ resendVerification(){
           console.log(res.user.emailVerified);
           this.authUser = res.user;
           this.firedb.updateUserData(res.user);
+          this.fillAdmins();
           resolve(res);
         },
         (err) => reject(err)
       );
     });
   }
-
+  /**
+   * Registra y verifica con cuenta google
+   */
   glogin() {
     return new Promise<any>((resolve, reject) => {
       console.log('google login!');
@@ -105,6 +119,7 @@ resendVerification(){
 
           this.authUser = res.user;
           this.firedb.updateUserData(res.user);
+          this.fillAdmins();
           resolve(res);
         },
         (err) => {
@@ -114,11 +129,49 @@ resendVerification(){
       );
     });
   }
-
+  /**
+   * El usuario deja de estar autenticado en la aplicacion
+   */
   logout() {
-    console.log('logout!');
+    console.log(this.authUser.email + ' logout!');
     this.afAuth.signOut();
 
     this.router.navigate(['/']);
+  }
+
+  /** Añadimos un elemento isAdmin al objeto authUser
+   * Si es nulo o negativo lo hace true y viceversa.
+   */
+
+  toggleAdminRole() {
+    console.log(
+      'El SDK admin de firebase esta pensado para backend. Tienes que hacer setcustomclaims con functions, o con un servidor heroku teniendo en cuenta tokens '
+    );
+  }
+
+  fillAdmins() {
+    this.firedb.getAdmins().subscribe((snap) => {
+      this.arrayAdmins = [];
+      snap.forEach((u) => {
+        const admin: any = u.payload.val();
+        admin.key = u.key;
+
+        this.arrayAdmins.push(admin);
+        console.log(u);
+      });
+      console.log('admins: ', this.arrayAdmins);
+    });
+  }
+
+  checkAdmin(val) {
+    const isMatch = this.arrayAdmins.filter((obj) => obj.email == val);
+    let res: boolean = false;
+    console.log(isMatch); //si coincide devuelve un array con el objeto de length=1, si no coincide length=0
+    if (isMatch.length != 0) {
+      res = true;
+    } else {
+      res = false;
+    }
+    return res;
   }
 }

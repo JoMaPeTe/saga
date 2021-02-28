@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../core/auth.service';
 import { Router, Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FireDBService } from '../core/fire-db.service';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-
+  arrayAdmins: any[] = [];
   constructor(
     public authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private firedb: FireDBService
+
   ) {}
   ngOnInit(): void {
     this.createForm();
@@ -49,5 +52,20 @@ export class LoginComponent implements OnInit {
         this.toastr.error('Formato de email no valido', 'Error Login');
       }
     });
+  }
+
+  checkAdmins(){
+    this.firedb.getAdmins().subscribe( snap => {
+      this.arrayAdmins = [];
+      snap.forEach ( u => {
+
+        const admin: any = u.payload.val();
+       admin.key = u.key;
+
+        this.arrayAdmins.push(admin);
+        console.log(u);
+      })
+    console.log('admins: ', this.arrayAdmins.toString);
+    })
   }
 }
