@@ -12,13 +12,13 @@ import { FireDBService } from '../core/fire-db.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  arrayAdmins: any[] = [];
+
   constructor(
     public authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private firedb: FireDBService
+   
 
   ) {}
   ngOnInit(): void {
@@ -54,18 +54,5 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  checkAdmins(){
-    this.firedb.getAdmins().subscribe( snap => {
-      this.arrayAdmins = [];
-      snap.forEach ( u => {
-
-        const admin: any = u.payload.val();
-       admin.key = u.key;
-
-        this.arrayAdmins.push(admin);
-        console.log(u);
-      })
-    console.log('admins: ', this.arrayAdmins.toString);
-    })
-  }
+  
 }
