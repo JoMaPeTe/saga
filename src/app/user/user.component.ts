@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../core/auth.service';
 import { FireDBService } from '../core/fire-db.service';
 
@@ -7,8 +8,9 @@ import { FireDBService } from '../core/fire-db.service';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   users : any = [];
+  userSubscription: Subscription;
 
   constructor(public db: FireDBService,
     public auth: AuthService) { }
@@ -16,9 +18,11 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.fillUsers();
   }
-
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
+  }
   fillUsers(){
-    this.db.getUsers().subscribe( snap => {
+    this.userSubscription = this.db.getUsers().subscribe( snap => {
       this.users = [];
       snap.forEach ( u => {
 

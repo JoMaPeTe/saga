@@ -42,7 +42,8 @@
         </button>
         <div class="result" *ngIf="imageURL| async as image">
 
-          <img [src]="image" width="200" />
+          <img [src]="image" style="width: 7rem"
+          class="rounded-circle " />
         </div>
 
         <ul class="navbar-nav">

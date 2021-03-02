@@ -5,6 +5,7 @@ import firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { FireDBService } from './fire-db.service';
 import { ToastrService } from 'ngx-toastr';
+import { of, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +13,12 @@ import { ToastrService } from 'ngx-toastr';
 export class AuthService implements OnInit {
   authUser: any = null;
   arrayAdmins: any[] = [];
-
+//dirección a la que redirecciona el link del correo de verificación
   actionCodeSettings = {
     url: 'https://saga-1f81f.web.app/',
   };
+
+  adminSubscription: Subscription;
   constructor(
     public afAuth: AngularFireAuth, //atributo publico de la clase del tipo AngularFireAuth
     private router: Router,
@@ -26,8 +29,8 @@ export class AuthService implements OnInit {
     this.arrayAdmins = [''];
 
   }
-  //Observador para asegurar que la autenticación no está en proceso
-  //Si esta logado, authuser no será null
+  //Observador para asegurar que la autenticación no está en proceso. Asyncpipe desde template
+
   user: any = this.afAuth.authState.pipe(
     map((authState) => {
       //console.log('authState: ', authState);
@@ -41,9 +44,7 @@ export class AuthService implements OnInit {
   );
 
   // Send email verification when new user sign up
-  // var actionCodeSettings = {
-  //   url: 'http://localhost:4200/',
-  // };
+
   resendVerification() {
     this.authUser
       .sendEmailVerification(this.actionCodeSettings)
@@ -137,6 +138,7 @@ export class AuthService implements OnInit {
    */
   logout() {
     console.log(this.authUser.email + ' logout!');
+    this.adminSubscription.unsubscribe();
     this.afAuth.signOut();
 
     this.router.navigate(['/']);
@@ -151,9 +153,13 @@ export class AuthService implements OnInit {
       'El SDK admin de firebase esta pensado para backend. Tienes que hacer setcustomclaims con functions, o con un servidor heroku teniendo en cuenta tokens '
     );
   }
-
+/**
+ * Si alguien está logado, comprueba y queda escuchando si es admin en la base de datos
+ *
+ */
   fillAdmins() {
-    this.firedb.getAdmins().subscribe((snap) => {
+
+  this.adminSubscription =  this.firedb.getAdmins().subscribe((snap) => {
       this.arrayAdmins = [];
       snap.forEach((u) => {
         const admin: any = u.payload.val();
@@ -164,6 +170,7 @@ export class AuthService implements OnInit {
       });
       console.log('admins: ', this.arrayAdmins);
     });
+
   }
 
   checkAdmin(val) {
@@ -177,7 +184,5 @@ export class AuthService implements OnInit {
     }
     return res;
   }
-getUser(){
-  return  this.user;
-}
+
 }
