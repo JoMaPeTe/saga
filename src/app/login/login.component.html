@@ -1,6 +1,6 @@
 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
   <div class="modal-content">
-    <form  method="post" [formGroup]="loginForm">
+    <form  method="post" [formGroup]="loginForm" autocomplete="on" >
       <div class="modal-header">
         <h1 class="header modal-title" >Login</h1>
         <button
@@ -13,23 +13,23 @@
 
       <div class="modal-body">
         <div class="form-group">
-          <label for="login-email">Email address</label>
+          <label for="login-email">Dirección de Email </label>
           <input
             type="email"
             #loginEmail id="login-email"
             formControlName="email"
             class="form-control"
-
+            autocomplete="username"
           />
         </div>
         <div class="form-group">
-          <label for="login-password">Password</label>
+          <label for="login-password">Contraseña</label>
           <input
             type="password"
             id="login-password"
             class="form-control"
             formControlName="password"
-            minLength="8"
+            autocomplete="current-password"
           />
 
         </div>
@@ -51,14 +51,14 @@
           data-bs-dismiss="modal"
           (click)="tryGoogleLogin()"
         >
-          Login with Google
+          Login con Google
         </button>
 
 
         <p class="text-center">
-          No account yet?
+          ¿Aún sin cuenta?
           <a class="link-warning fw-bold" data-bs-toggle="modal"
-          data-bs-target="#registerModal" data-bs-dismiss="modal" role="button">Create an account</a>
+          data-bs-target="#registerModal" data-bs-dismiss="modal" role="button">Crea una cuenta</a>
         </p>
       </div>
 

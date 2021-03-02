@@ -24,6 +24,7 @@ export class AuthService implements OnInit {
   ) {}
   ngOnInit(): void {
     this.arrayAdmins = [''];
+
   }
   //Observador para asegurar que la autenticación no está en proceso
   //Si esta logado, authuser no será null
@@ -93,9 +94,10 @@ export class AuthService implements OnInit {
         (res) => {
           console.log('user logado con mail: ', res.user.email);
           console.log(res.user.emailVerified);
-          this.authUser = res.user;
+
           this.firedb.updateUserData(res.user);
           this.fillAdmins();
+
           resolve(res);
         },
         (err) => reject(err)
@@ -117,9 +119,10 @@ export class AuthService implements OnInit {
         (res) => {
           console.log('user logado: ', res);
 
-          this.authUser = res.user;
+
           this.firedb.updateUserData(res.user);
           this.fillAdmins();
+
           resolve(res);
         },
         (err) => {
@@ -166,7 +169,7 @@ export class AuthService implements OnInit {
   checkAdmin(val) {
     const isMatch = this.arrayAdmins.filter((obj) => obj.email == val);
     let res: boolean = false;
-    console.log(isMatch); //si coincide devuelve un array con el objeto de length=1, si no coincide length=0
+    //console.log(isMatch); //si coincide devuelve un array con el objeto de length=1, si no coincide length=0
     if (isMatch.length != 0) {
       res = true;
     } else {
@@ -174,4 +177,7 @@ export class AuthService implements OnInit {
     }
     return res;
   }
+getUser(){
+  return  this.user;
+}
 }

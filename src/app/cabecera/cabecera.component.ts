@@ -1,8 +1,11 @@
-import { Component, OnInit, ɵɵresolveBody } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { Component, Input, OnInit, ɵɵresolveBody } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { map } from 'rxjs/operators';
 import { AuthService } from '../core/auth.service';
 import { FireDBService } from '../core/fire-db.service';
 import { FirestorageService } from '../core/firestorage.service';
+
 @Component({
   selector: 'app-cabecera',
   templateUrl: './cabecera.component.html',
@@ -10,19 +13,44 @@ import { FirestorageService } from '../core/firestorage.service';
 })
 export class CabeceraComponent implements OnInit {
   darkForm: FormGroup;
+imageURL:any =null ;
+myUser:any;
+images:any[]=[];
+users:any[]=[];
 
   constructor(
     public auth: AuthService,
-    public firestorage: FirestorageService,
+    public db:  FireDBService,
     private fb: FormBuilder,
+    public firestorage : FirestorageService
+  ) {  }
+/////////////////////////////////////
 
-  ) {}
 
+
+
+/////////////////////////////////////
   ngOnInit(): void {
     this.createSwitch();
     this.darkLight();
+    this.auth.afAuth.onAuthStateChanged((user)=>{ if(user){
+   this.imageURL = this.db.getUserImage( user).pipe(
+      map((data) => {
+        console.log('DATA: ', data.payload.val());
+        if (data) {
+          //this.authUser = authState;
+          return data.payload.val();
+        } else {
+          return null;
+        }
+      })
+    );
+    }})
+
+
 
   }
+
   createSwitch() {
     this.darkForm = this.fb.group({ switch: false });
   }
@@ -37,7 +65,17 @@ export class CabeceraComponent implements OnInit {
       }
     });
   }
+readURL(user){
+
+    //Las siguientes 2 lineas, son 2 dias de trabajo, recupera url de la imagen de realtime database
 
 
+
+      this.db.getUserImage(user) .subscribe(snap => {
+       console.log('images: ',snap.payload.val());
+       this.imageURL = snap.payload.val(); }
+ ,
+ (err)=>console.log(err))
+   }
 
 }

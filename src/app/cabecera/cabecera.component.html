@@ -40,8 +40,9 @@
         <button class="btn btn-dark position-relative" (click)="auth.logout()">
           Logout
         </button>
-        <div class="result" *ngIf="firestorage.downloadURL | async; let url">
-          <img [src]="url" width="200" />
+        <div class="result" *ngIf="imageURL| async as image">
+
+          <img [src]="image" width="200" />
         </div>
 
         <ul class="navbar-nav">

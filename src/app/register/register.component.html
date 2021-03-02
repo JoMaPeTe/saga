@@ -1,8 +1,8 @@
 <div  class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
   <div class="modal-content">
-    <form method="post" [formGroup]="registerForm">
+    <form method="post" [formGroup]="registerForm" autocomplete="on">
       <div class="modal-header">
-        <h1 class="header modal-title">Register</h1>
+        <h1 class="header modal-title">Registro</h1>
         <button
           type="button"
           class="btn-close"
@@ -12,7 +12,7 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="register-email">Email address</label>
+          <label for="register-email">Dirección Email</label>
           <input
             type="email"
             id="register-email"
@@ -20,19 +20,21 @@
             placeholder="Introduce tu email"
             aria-describedby="emailHelp"
             class="form-control"
+            autocomplete="username"
           />
           <small id="emailHelp" class="form-text text-warning"
-            >We'll never share your email with anyone else.</small
+            >Nunca compartiremos tu email con nadie más</small
           >
         </div>
         <div class="form-group">
-          <label for="register-password">Password</label>
+          <label for="register-password">Contraseña</label>
           <input
             type="password"
             id="register-password"
             class="form-control"
             placeholder="Introduce tu contraseña"
             formControlName="password"
+            autocomplete="current-password"
           />
 
         </div>
@@ -45,10 +47,10 @@
            data-bs-dismiss="modal"
 
         >
-          Register
+          Registro
         </button>
         <p style="text-align: center">
-          Already have an account?
+          Ya tienes cuenta?
           <a class="link-warning fw-bold" data-bs-toggle="modal"
           data-bs-target="#loginModal" data-bs-dismiss="modal" role="button">Login</a>
         </p>

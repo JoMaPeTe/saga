@@ -3,6 +3,7 @@ import {  AngularFireStorage, AngularFireUploadTask  } from '@angular/fire/stora
 import { AuthService } from './auth.service';
 import { Observable, of } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { FireDBService } from './fire-db.service';
 
 
 @Injectable({
@@ -13,13 +14,14 @@ export class FirestorageService {
     path = '';
     task: AngularFireUploadTask | undefined ;
     uploadProgress = new Observable();
-    downloadURL = of('');
-
+    downloadURL$: Observable<string> = of(''); //observable, permite que se actualice la plantilla hmtl
+    imageURL = '';//string que vamos a guardar en firedb asociado al user
   constructor(public firestorage: AngularFireStorage,
-              public auth: AuthService  ) { }
+              public auth: AuthService,
+              private db: FireDBService ) { }
 
   uploadFile(event: any) {
-    console.log('event: ', event);
+
 
     let ext = '.jpg';
     if (event.target.files[0].type === 'image/png'){
@@ -31,13 +33,21 @@ export class FirestorageService {
 
     this.task = this.firestorage.upload(  path, event.target.files[0]);
 
-    this.uploadProgress = this.task.percentageChanges();
+    this.uploadProgress = this.task.percentageChanges(); //Rellena barrita progreso <progress>
 
-    this.task.snapshotChanges().pipe( finalize ( ()=> {
-      this.downloadURL = ref.getDownloadURL();
-      console.log('this.downloadURL: ', this.downloadURL);
-    })).subscribe();
-
+     this.task.snapshotChanges().pipe( finalize ( ()=> {
+       this.downloadURL$ = ref.getDownloadURL();
+       this.downloadURL$.subscribe((url) => {
+         this.imageURL = url;
+        this.db.updateUserImageURL(this.imageURL, this.auth.authUser);
+      });
+     })
+     ).subscribe();
   }
+
+
+
+
+
 
 }

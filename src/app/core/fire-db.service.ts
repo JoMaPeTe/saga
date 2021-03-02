@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase} from '@angular/fire/database';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FireDBService {
 
-  constructor(private db: AngularFireDatabase)  { }
+  constructor(private db: AngularFireDatabase,
 
-
-
-
+    )  { }
 
   makeAdmin(user:any){
     const path = 'admins/' + user.key;
@@ -36,7 +35,23 @@ export class FireDBService {
     .catch( error => console.log(error));
 
   }
+  updateUserImageURL(url: any,user){
 
+    const path = 'users/' + user.uid ;
+    const u = {
+      image: url
+    }
+    this.db.object(path).update(u)
+    .catch( error => console.log(error));
+
+  }
+  getUserImage(user){
+
+    const path = 'users/'+ user.uid + '/image';
+    console.log(path);
+
+     return  this.db.object(path).snapshotChanges();
+  }
   getUsers(){
     const path = 'users/';
     //return this.db.list(path).valueChanges();
