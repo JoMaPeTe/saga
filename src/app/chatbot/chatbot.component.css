@@ -1,0 +1,162 @@
+.container {
+  max-width: 500 !important;
+  margin: auto;
+  margin-top: 4%;
+  font-family: sans-serif;
+  letter-spacing: 0.5px;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 50%;
+}
+
+.msg-header {
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 10%;
+  border-bottom: none;
+  display: inline-block;
+  background-color: #007bff;
+}
+
+.msg-header-img {
+  border-radius: 50%;
+  width: 3em;
+  margin-left: 5%;
+  margin-top: 5%;
+  float: left;
+}
+
+.active {
+  width: 7em;
+  float: left;
+  margin-top: 1.5em;
+}
+
+.active h4 {
+  font-size: 1.25em;
+  margin-left: 0.6em;
+  color: #fff;
+}
+
+.active h6 {
+  font-size: 0.6em;
+  margin-left: 0.6em;
+  line-height: 0.12em;
+  color: #fff;
+}
+
+.chat-page {
+  padding: 0 0 23em 0;
+
+
+
+}
+
+.msg-inbox {
+  border: 1px solid #ccc;
+  overflow: hidden;
+  padding-bottom: 2em;
+  background-color: #fff;
+}
+
+.chats {
+  padding: 2em 1em 0 1.5em;
+  border: 1px solid #ccc;
+
+}
+
+.msg-page {
+  height: 32em;
+  overflow-y: auto;
+}
+
+.received-chats-img {
+  width: 2em;
+  float: left;
+}
+
+.received-msg {
+  display: inline-block;
+  padding: 0 0 0 0.6em;
+  vertical-align: top;
+  width: 92%;
+}
+
+.received-msg-inbox {
+  width: 57%;
+}
+
+.received-msg-inbox p {
+  background: #efefef none repeat scroll 0 0;
+  border-radius: 10px;
+  color: #646464;
+  font-size: .9em;
+  margin: 0;
+  padding: .3em .6em .3em .8em;
+  width: 100%;
+}
+
+.time {
+  display: block;
+  font-size: 0.8em;
+  margin: .5em 0 0 .5em;
+}
+
+.outgoing-chats{
+  overflow: hidden;
+  margin: 1.6em 1.25em;
+}
+.outgoing-chats-msg p{
+  background: #007bff none repeat scroll;
+  border-radius: 10px;
+  color: #fff;
+  font-size: .9em;
+  margin: 0;
+  padding: .3em .6em .3em .8em;
+  width: 100%;
+}
+
+.outgoing-chats-msg{
+  float:left;
+  width: 46%;
+  margin-left: 45%;
+}
+.outgoing-chats-img{
+  width: 2em;
+  float: right;
+}
+
+.msg-bottom{
+  position: relative;
+  height: 10%;
+  background-color: #007bff;
+}
+
+.input-group{
+  float:right;
+  margin-top: 0.8em;
+  margin-right: 1.4em;
+  outline: none impo !important;
+  border-radius: 1.4em;
+  width: 90% !important;
+  background-color: #fff;
+}
+.form-control{
+  border:none !important;
+  border-radius: 1.4em!important;
+}
+/* .input-group-text{
+  background: transparent !important;
+  border: none !important;
+} */
+
+/* .input-group-append{
+  background: lightblue;
+} */
+.form-control:focus{
+  border-color: none !important;
+  box-shadow: none !important;
+  border-radius: 1.4em;
+}

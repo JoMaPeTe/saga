@@ -17,7 +17,7 @@ imageURL:any =null ;
 myUser:any;
 images:any[]=[];
 users:any[]=[];
-
+swithValue:boolean;
   constructor(
     public auth: AuthService,
     public db:  FireDBService,
@@ -34,18 +34,23 @@ users:any[]=[];
     this.createSwitch();
     this.darkLight();
     this.auth.afAuth.onAuthStateChanged((user)=>{ if(user){
+      this.auth.fillAdmins();
    this.imageURL = this.db.getUserImage( user).pipe(
       map((data) => {
         console.log('DATA: ', data.payload.val());
+        let img;
         if (data) {
-          //this.authUser = authState;
-          return data.payload.val();
+          img = data.payload.val();
+
         } else {
-          return null;
+          img = null;
         }
+        this.auth.setImageURL(img);
+        return img;
       })
     );
-    }})
+    }
+  })
 
 
 
@@ -53,18 +58,24 @@ users:any[]=[];
 
   createSwitch() {
     this.darkForm = this.fb.group({ switch: false });
+
   }
   darkLight() {
     const body = document.getElementById('body');
-
+    this.auth.setSwitch(this.darkForm);
     this.darkForm.get('switch').valueChanges.subscribe((value) => {
       if (value) {
         body.setAttribute('class', 'bg-dark text-white');
+
       } else {
         body.setAttribute('class', 'bg-img');
       }
+
     });
+
+
   }
+
 readURL(user){
 
     //Las siguientes 2 lineas, son 2 dias de trabajo, recupera url de la imagen de realtime database

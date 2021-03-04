@@ -24,6 +24,8 @@ import { AuthService } from './core/auth.service';
 import { FireDBService } from './core/fire-db.service';
 import { FirestorageService } from './core/firestorage.service';
 import { SettingsComponent } from './settings/settings.component';
+import { ChatbotComponent } from './chatbot/chatbot.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { SettingsComponent } from './settings/settings.component';
     LoginComponent,
     UserComponent,
     SettingsComponent,
+    ChatbotComponent,
 
 
   ],
@@ -52,7 +55,8 @@ import { SettingsComponent } from './settings/settings.component';
       positionClass: 'toast-top-center'
      }), // ToastrModule added
     AngularFireDatabaseModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [AuthService, FireDBService, FirestorageService],
   bootstrap: [AppComponent]

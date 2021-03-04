@@ -13,22 +13,23 @@ import { of, Subscription } from 'rxjs';
 export class AuthService implements OnInit {
   authUser: any = null;
   arrayAdmins: any[] = [];
-//dirección a la que redirecciona el link del correo de verificación
+  //dirección a la que redirecciona el link del correo de verificación
   actionCodeSettings = {
     url: 'https://saga-1f81f.web.app/',
   };
-
   adminSubscription: Subscription;
+  imageURL:any =null;
+  darkForm: any;
+
   constructor(
     public afAuth: AngularFireAuth, //atributo publico de la clase del tipo AngularFireAuth
     private router: Router,
     private firedb: FireDBService,
     private toastr: ToastrService
   ) {}
-  ngOnInit(): void {
-    this.arrayAdmins = [''];
 
-  }
+  ngOnInit(): void {}
+
   //Observador para asegurar que la autenticación no está en proceso. Asyncpipe desde template
 
   user: any = this.afAuth.authState.pipe(
@@ -38,10 +39,14 @@ export class AuthService implements OnInit {
         this.authUser = authState;
         return authState;
       } else {
+        if (this.adminSubscription) {
+          this.adminSubscription.unsubscribe();
+        }
         return null;
       }
     })
   );
+
 
   // Send email verification when new user sign up
 
@@ -97,7 +102,8 @@ export class AuthService implements OnInit {
           console.log(res.user.emailVerified);
 
           this.firedb.updateUserData(res.user);
-          this.fillAdmins();
+          this.arrayAdmins = [''];
+
 
           resolve(res);
         },
@@ -120,9 +126,9 @@ export class AuthService implements OnInit {
         (res) => {
           console.log('user logado: ', res);
 
-
           this.firedb.updateUserData(res.user);
-          this.fillAdmins();
+          this.arrayAdmins = [''];
+
 
           resolve(res);
         },
@@ -138,10 +144,9 @@ export class AuthService implements OnInit {
    */
   logout() {
     console.log(this.authUser.email + ' logout!');
-    this.adminSubscription.unsubscribe();
-    this.afAuth.signOut();
-
     this.router.navigate(['/']);
+
+    this.afAuth.signOut();
   }
 
   /** Añadimos un elemento isAdmin al objeto authUser
@@ -153,13 +158,12 @@ export class AuthService implements OnInit {
       'El SDK admin de firebase esta pensado para backend. Tienes que hacer setcustomclaims con functions, o con un servidor heroku teniendo en cuenta tokens '
     );
   }
-/**
- * Si alguien está logado, comprueba y queda escuchando si es admin en la base de datos
- *
- */
+  /**
+   * Si alguien está logado, comprueba y queda escuchando si es admin en la base de datos
+   *
+   */
   fillAdmins() {
-
-  this.adminSubscription =  this.firedb.getAdmins().subscribe((snap) => {
+    this.adminSubscription = this.firedb.getAdmins().subscribe((snap) => {
       this.arrayAdmins = [];
       snap.forEach((u) => {
         const admin: any = u.payload.val();
@@ -170,7 +174,6 @@ export class AuthService implements OnInit {
       });
       console.log('admins: ', this.arrayAdmins);
     });
-
   }
 
   checkAdmin(val) {
@@ -184,5 +187,21 @@ export class AuthService implements OnInit {
     }
     return res;
   }
+//set y get imageURL, para usar este servicio auth para comunicar este valor entre componentes
+  setImageURL(value){
+    this.imageURL = value;
+  }
+  getImageURL(){
+    return this.imageURL ;
+  }
+//Set y get switch para usar este servicio para comunicar si entre componentes
+setSwitch(value){
+     this.darkForm= value;
+ }
+getSwitch(){
+ return this.darkForm;
+}
 
 }
+
+
