@@ -29,6 +29,7 @@ export class CabeceraComponent implements OnInit {
     this.createSwitch();
     this.darkLight();
     this.readURL();
+   
   }
 
   createSwitch() {

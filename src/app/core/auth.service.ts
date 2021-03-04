@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FireDBService } from './fire-db.service';
 import { ToastrService } from 'ngx-toastr';
 import { of, Subscription } from 'rxjs';
+import { threadId } from 'worker_threads';
 
 @Injectable({
   providedIn: 'root',
@@ -163,7 +164,7 @@ export class AuthService implements OnInit {
     );
   }
   /**
-   * Si alguien está logado, comprueba y queda escuchando si es admin en la base de datos
+   * Si alguien está logado, comprueba en tiempo real y queda escuchando si es admin en la base de datos
    *
    */
   fillAdmins() {
@@ -198,11 +199,14 @@ export class AuthService implements OnInit {
   getImageURL() {
     return this.imageURL;
   }
-  //Set y get switch para usar este servicio para comunicar si entre componentes
+  //Set y get switch para usar este servicio para comunicar switch entre componentes (fondo chat dark)
   setSwitch(value) {
     this.darkForm = value;
   }
   getSwitch() {
     return this.darkForm;
   }
+// CUSTOM CLAIMS CON FUNCTION EN FRONTEND---SI DA TIEMPO PARA APLICAR RULES EN BD
+
+
 }
