@@ -13,52 +13,26 @@ import { FirestorageService } from '../core/firestorage.service';
 })
 export class CabeceraComponent implements OnInit {
   darkForm: FormGroup;
-imageURL:any =null ;
-myUser:any;
-images:any[]=[];
-users:any[]=[];
-swithValue:boolean;
+  imageURL: any = null;
+  myUser: any;
+  images: any[] = [];
+  users: any[] = [];
+  swithValue: boolean;
   constructor(
     public auth: AuthService,
-    public db:  FireDBService,
+    public db: FireDBService,
     private fb: FormBuilder,
-    public firestorage : FirestorageService
-  ) {  }
-/////////////////////////////////////
+    public firestorage: FirestorageService
+  ) {}
 
-
-
-
-/////////////////////////////////////
   ngOnInit(): void {
     this.createSwitch();
     this.darkLight();
-    this.auth.afAuth.onAuthStateChanged((user)=>{ if(user){
-      this.auth.fillAdmins();
-   this.imageURL = this.db.getUserImage( user).pipe(
-      map((data) => {
-        console.log('DATA: ', data.payload.val());
-        let img;
-        if (data) {
-          img = data.payload.val();
-
-        } else {
-          img = null;
-        }
-        this.auth.setImageURL(img);
-        return img;
-      })
-    );
-    }
-  })
-
-
-
+    this.readURL();
   }
 
   createSwitch() {
     this.darkForm = this.fb.group({ switch: false });
-
   }
   darkLight() {
     const body = document.getElementById('body');
@@ -66,27 +40,30 @@ swithValue:boolean;
     this.darkForm.get('switch').valueChanges.subscribe((value) => {
       if (value) {
         body.setAttribute('class', 'bg-dark text-white');
-
       } else {
         body.setAttribute('class', 'bg-img');
       }
-
     });
-
-
   }
 
-readURL(user){
-
-    //Las siguientes 2 lineas, son 2 dias de trabajo, recupera url de la imagen de realtime database
-
-
-
-      this.db.getUserImage(user) .subscribe(snap => {
-       console.log('images: ',snap.payload.val());
-       this.imageURL = snap.payload.val(); }
- ,
- (err)=>console.log(err))
-   }
-
+  readURL() {
+    this.auth.afAuth.onAuthStateChanged((user) => {
+      if (user) {
+        this.auth.fillAdmins();
+        this.imageURL = this.db.getUserImage(user).pipe(
+          map((data) => {
+            console.log('DATA: ', data.payload.val());
+            let img;
+            if (data) {
+              img = data.payload.val();
+            } else {
+              img = null;
+            }
+            this.auth.setImageURL(img);
+            return img;
+          })
+        );
+      }
+    });
+  }
 }

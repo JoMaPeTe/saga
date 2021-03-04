@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../core/auth.service';
 import { Router, Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FireDBService } from '../core/fire-db.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +17,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private toastr: ToastrService,
-   
+
 
   ) {}
   ngOnInit(): void {
@@ -54,5 +53,5 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  
+
 }

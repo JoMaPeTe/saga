@@ -26,6 +26,7 @@ import { FirestorageService } from './core/firestorage.service';
 import { SettingsComponent } from './settings/settings.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './core/auth.guard';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, FireDBService, FirestorageService],
+  providers: [AuthService, FireDBService, FirestorageService,AuthGuard ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

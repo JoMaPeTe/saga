@@ -18,9 +18,9 @@ export class AuthService implements OnInit {
     url: 'https://saga-1f81f.web.app/',
   };
   adminSubscription: Subscription;
-  imageURL:any =null;
+  imageURL: any = null;
   darkForm: any;
-
+  isLogged: boolean = false;
   constructor(
     public afAuth: AngularFireAuth, //atributo publico de la clase del tipo AngularFireAuth
     private router: Router,
@@ -47,6 +47,10 @@ export class AuthService implements OnInit {
     })
   );
 
+  getIsLogged() {
+    console.log(this.isLogged);
+    return this.isLogged;
+  }
 
   // Send email verification when new user sign up
 
@@ -103,7 +107,7 @@ export class AuthService implements OnInit {
 
           this.firedb.updateUserData(res.user);
           this.arrayAdmins = [''];
-
+          this.isLogged = true;
 
           resolve(res);
         },
@@ -128,7 +132,7 @@ export class AuthService implements OnInit {
 
           this.firedb.updateUserData(res.user);
           this.arrayAdmins = [''];
-
+          this.isLogged = true;
 
           resolve(res);
         },
@@ -145,7 +149,7 @@ export class AuthService implements OnInit {
   logout() {
     console.log(this.authUser.email + ' logout!');
     this.router.navigate(['/']);
-
+    this.isLogged=false;
     this.afAuth.signOut();
   }
 
@@ -187,21 +191,18 @@ export class AuthService implements OnInit {
     }
     return res;
   }
-//set y get imageURL, para usar este servicio auth para comunicar este valor entre componentes
-  setImageURL(value){
+  //set y get imageURL, para usar este servicio auth para comunicar este valor entre componentes
+  setImageURL(value) {
     this.imageURL = value;
   }
-  getImageURL(){
-    return this.imageURL ;
+  getImageURL() {
+    return this.imageURL;
   }
-//Set y get switch para usar este servicio para comunicar si entre componentes
-setSwitch(value){
-     this.darkForm= value;
- }
-getSwitch(){
- return this.darkForm;
+  //Set y get switch para usar este servicio para comunicar si entre componentes
+  setSwitch(value) {
+    this.darkForm = value;
+  }
+  getSwitch() {
+    return this.darkForm;
+  }
 }
-
-}
-
-
