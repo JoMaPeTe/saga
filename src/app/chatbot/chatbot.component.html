@@ -5,30 +5,36 @@
     </div>
     <div class="active">
       <h4>Jarvis</h4>
-      <h6>3 hors ago...</h6>
+      <h6>Conversation with a bot...</h6>
     </div>
   </div>
   <div class="chat-page" >
     <div class="msg-inbox" id="msg-inbox">
       <div class="chats" >
-        <div class="msg-page">
+        <div class="msg-page" *ngFor="let msg of messages"
+        type="text"
+        [message]="msg.text"
+        [reply]="msg.reply"
+        [sender]="msg.sender"
+        [date]="msg.date"
+        [avatar]="msg.avatar">
           <!-- ---------------------------------- -->
           <div class="received-chats">
             <div class="received-chats-img" >
-              <img src="../../assets/imagenes/bot.jpg" />
+              <img src={{avatar}} />
             </div>
             <div class="received-msg">
               <div class="received-msg-inbox">
-                <p>Hi! This is message from Jarvis</p>
-                <span class="time">11:01 PM | October 11</span>
+                <p>{{message}}</p>
+                <span class="time">{{date}}</span>
               </div>
             </div>
           </div>
 
           <div class="outgoing-chats">
             <div class="outgoing-chats-msg">
-                <p>Hi! This is message from me</p>
-                <span class="time">11:01 PM | October 11</span>
+                <p>{{reply}}</p>
+                <span class="time">{{date}}</span>
             </div>
             <div class="outgoing-chats-img" *ngIf="imageURL">
               <img [src]="imageURL" />
@@ -43,7 +49,7 @@
 
       <div class="input-group">
         <input type="text" class="form-control" placeholder="escribe un mensaje..">
-        <button type="submit" class="btn btn-success"><i class="far fa-paper-plane"></i></button>
+        <button type="submit" class="btn btn-success" (click)="handleUserMessage($event)" ><i class="far fa-paper-plane"></i></button>
     </div>
 
   </div>

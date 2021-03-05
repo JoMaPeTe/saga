@@ -11,7 +11,7 @@ export class ChatbotComponent implements OnInit {
   messages= <any>[];
   loading = false;
   dialogflowURL = 'https://5a71258e3c44.ngrok.io/gateway'; //'https://YOUR-CLOUDFUNCTION/dialogflowGateway';
-  // Random ID to maintain session with server
+  // Random ID to maintain session with server https://cloud.google.com/dialogflow/es/docs/quick/api
   sessionId = Math.random().toString(36).slice(-5);
   imageURL:any ;
   darkSubscription: Subscription;
@@ -24,8 +24,8 @@ export class ChatbotComponent implements OnInit {
     this.darkChat();
     this.auth.afAuth.onAuthStateChanged(()=>{
      this.imageURL= this.auth.getImageURL()})
+  this.addBotMessage('Human presence detected 🤖. How can I help you? ');
 
-  //  this.addBotMessage('Human presence detected 🤖. How can I help you? ');
   }
 darkChat(){
 
@@ -76,6 +76,7 @@ darkChat(){
       text,
       sender: 'You',
       reply: true,
+      avatar: this.imageURL,
       date: new Date()
     });
   }
@@ -84,7 +85,7 @@ darkChat(){
     this.messages.push({
       text,
       sender: 'Bot',
-      avatar: '../assets/bot.jpg',
+      avatar: '../../assets/imagenes/bot.jpg',
       date: new Date()
     });
   }
