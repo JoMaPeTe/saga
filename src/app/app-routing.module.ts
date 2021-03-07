@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ChatbotComponent } from './chatbot/chatbot.component';
+import { ChatDialogComponent } from './chat/chat-dialog/chat-dialog.component';
+// import { ChatbotComponent } from './chatbot/chatbot.component';
 import { AuthGuard } from './core/auth.guard';
 import { EventosComponent } from './eventos/eventos.component';
 import { HomeComponent } from './home/home.component';
@@ -14,7 +15,7 @@ const routes: Routes = [
   {path:'eventos',component:EventosComponent},
   {path:'users',component:UserComponent},
   {path:'settings',component:SettingsComponent,canActivate: [AuthGuard]},
-  {path:'chatbot',component:ChatbotComponent, canActivate: [AuthGuard]},
+  {path:'chatbot',component:ChatDialogComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

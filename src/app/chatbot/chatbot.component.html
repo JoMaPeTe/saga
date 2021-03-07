@@ -1,4 +1,15 @@
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+
+
+<df-messenger
+  intent="WELCOME"
+  chat-title="CentroDeportivo"
+  agent-id="582bf435-c75e-4e77-a971-5beaf057531f"
+  language-code="es"
+></df-messenger>
+
 <div class="container">
+
   <div class="msg-header">
     <div class="msg-header-img">
       <img src="../../assets/imagenes/bot.jpg" alt="imagen de un robot" />
@@ -11,15 +22,16 @@
   <div class="chat-page" >
     <div class="msg-inbox" id="msg-inbox">
       <div class="chats" >
-        <div class="msg-page" *ngFor="let msg of messages"
-        type="text"
-        [message]="msg.text"
-        [reply]="msg.reply"
-        [sender]="msg.sender"
-        [date]="msg.date"
-        [avatar]="msg.avatar">
+        <div class="msg-page" >
           <!-- ---------------------------------- -->
-          <div class="received-chats">
+          <div *ngFor="let msg of messages"
+          type="text"
+          [message]="msg.text"
+          [reply]="msg.reply"
+          [sender]="msg.sender"
+          [date]="msg.date"
+          [avatar]="msg.avatar">
+          <div class="received-chats"  >
             <div class="received-chats-img" >
               <img src={{avatar}} />
             </div>
@@ -40,6 +52,8 @@
               <img [src]="imageURL" />
             </div>
           </div>
+
+        </div>
 <!-- --------------------------------------------- -->
         </div>
       </div>

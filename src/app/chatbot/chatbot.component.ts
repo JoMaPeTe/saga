@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 export class ChatbotComponent implements OnInit {
   messages= <any>[];
   loading = false;
-  dialogflowURL = 'https://5a71258e3c44.ngrok.io/gateway'; //'https://YOUR-CLOUDFUNCTION/dialogflowGateway';
+  dialogflowURL = 'https://b7cef84cda27.ngrok.io/gateway'; //'https://YOUR-CLOUDFUNCTION/dialogflowGateway';
   // Random ID to maintain session with server https://cloud.google.com/dialogflow/es/docs/quick/api
   sessionId = Math.random().toString(36).slice(-5);
   imageURL:any ;
@@ -23,28 +23,24 @@ export class ChatbotComponent implements OnInit {
   ngOnInit(): void {
     this.darkChat();
     this.auth.afAuth.onAuthStateChanged(()=>{
-     this.imageURL= this.auth.getImageURL()})
+     this.imageURL= this.auth.getImageURL()
+    })
+
   this.addBotMessage('Human presence detected 🤖. How can I help you? ');
-
   }
+
 darkChat(){
-
   this.darkSubscription = this.auth.getSwitch().get('switch').valueChanges.subscribe((value) => {
-
       const chat = document.getElementById('msg-inbox');
-
       if(value){
         chat.setAttribute('class', 'bg-dark');
       }else{
         chat.setAttribute('class', 'msg-inbox');
       }
-
   });
-
-
 }
 
-  handleUserMessage(event: any) {
+handleUserMessage(event: any) {
     console.log(event);
     const text = event.message;
     this.addUserMessage(text);

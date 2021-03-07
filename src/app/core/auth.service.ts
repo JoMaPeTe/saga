@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { FireDBService } from './fire-db.service';
 import { ToastrService } from 'ngx-toastr';
 import { of, Subscription } from 'rxjs';
-import { threadId } from 'worker_threads';
+
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class AuthService implements OnInit {
   adminSubscription: Subscription;
   imageURL: any = null;
   darkForm: any;
-  isLogged: boolean = false;
+  isLogged: boolean;
   constructor(
     public afAuth: AngularFireAuth, //atributo publico de la clase del tipo AngularFireAuth
     private router: Router,
@@ -38,8 +38,10 @@ export class AuthService implements OnInit {
       //console.log('authState: ', authState);
       if (authState) {
         this.authUser = authState;
+        this.isLogged = true;
         return authState;
       } else {
+        this.isLogged = false;
         if (this.adminSubscription) {
           this.adminSubscription.unsubscribe();
         }
