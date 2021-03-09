@@ -28,6 +28,11 @@ import { ChatbotComponent } from './chatbot/chatbot.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './core/auth.guard';
 import { ChatModule } from './chat/chat.module'
+
+
+import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { NbIconModule } from '@nebular/theme';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +63,14 @@ import { ChatModule } from './chat/chat.module'
     AngularFireDatabaseModule,
     ReactiveFormsModule,
     HttpClientModule,
-     ChatModule
+     ChatModule,
+     NbThemeModule.forRoot({ name: 'default' }),
+     NbLayoutModule,
+     NbEvaIconsModule,
+     NbIconModule,
+     NbChatModule,
+     NbSpinnerModule,
+
   ],
   providers: [AuthService, FireDBService, FirestorageService,AuthGuard ],
   bootstrap: [AppComponent],

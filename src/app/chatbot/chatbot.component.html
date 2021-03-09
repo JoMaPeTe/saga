@@ -1,12 +1,16 @@
-<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-
-
+<!-- <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 <df-messenger
   intent="WELCOME"
-  chat-title="CentroDeportivo"
-  agent-id="582bf435-c75e-4e77-a971-5beaf057531f"
+  chat-title="AgenteDeportivo"
+  agent-id="e6a561b0-c21d-4491-b0c6-05dc23826eda"
   language-code="es"
-></df-messenger>
+></df-messenger> -->
+
+
+
+
+
+
 
 <div class="container">
 
@@ -15,7 +19,7 @@
       <img src="../../assets/imagenes/bot.jpg" alt="imagen de un robot" />
     </div>
     <div class="active">
-      <h4>Jarvis</h4>
+      <h4>Herbies</h4>
       <h6>Conversation with a bot...</h6>
     </div>
   </div>
@@ -23,8 +27,31 @@
     <div class="msg-inbox" id="msg-inbox">
       <div class="chats" >
         <div class="msg-page" >
-          <!-- ---------------------------------- -->
-          <div *ngFor="let msg of messages"
+
+
+          <nb-chat title="Conversation with a Bot">
+            <nb-chat-message *ngFor="let msg of messages"
+                             type="text"
+                             [message]="msg.text"
+                             [reply]="msg.reply"
+                             [sender]="msg.sender"
+                             [date]="msg.date"
+                             [avatar]="msg.avatar">
+          </nb-chat-message>
+
+
+          <nb-chat-message *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="info"
+            type="text"
+            avatar="../../assets/imagenes/bot.jpg"
+            message="...">
+
+          </nb-chat-message>
+
+
+
+          </nb-chat>
+
+          <!-- <div *ngFor="let msg of messages"
           type="text"
           [message]="msg.text"
           [reply]="msg.reply"
@@ -53,18 +80,25 @@
             </div>
           </div>
 
-        </div>
-<!-- --------------------------------------------- -->
+        </div> -->
+
+
+
+
+
         </div>
       </div>
     </div>
 
     <div class="msg-bottom">
 
-      <div class="input-group">
+      <nb-chat-form (send)="handleUserMessage($event)" [dropFiles]="false" >
+      </nb-chat-form>
+
+      <!-- <div class="input-group">
         <input type="text" class="form-control" placeholder="escribe un mensaje..">
         <button type="submit" class="btn btn-success" (click)="handleUserMessage($event)" ><i class="far fa-paper-plane"></i></button>
-    </div>
+    </div> -->
 
   </div>
 </div>

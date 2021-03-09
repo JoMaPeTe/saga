@@ -26,6 +26,8 @@ export class FirestorageService {
     let ext = '.jpg';
     if (event.target.files[0].type === 'image/png'){
       ext = '.png';
+    }else if (event.target.files[0].type === 'image/jpeg'){
+      ext = '.jpeg';
     }
 
     const path = this.path + this.auth.authUser.uid  + ext;

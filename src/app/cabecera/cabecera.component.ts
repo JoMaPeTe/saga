@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, Input, OnInit, ɵɵresolveBody } from '@angular/core';
+import { Component, Input, OnInit, } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../core/auth.service';
@@ -14,10 +14,10 @@ import { FirestorageService } from '../core/firestorage.service';
 export class CabeceraComponent implements OnInit {
   darkForm: FormGroup;
   imageURL: any = null;
-  myUser: any;
-  images: any[] = [];
-  users: any[] = [];
-  swithValue: boolean;
+  // myUser: any;
+  // images: any[] = [];
+  // users: any[] = [];
+  // swithValue: boolean;
   constructor(
     public auth: AuthService,
     public db: FireDBService,
@@ -50,7 +50,7 @@ export class CabeceraComponent implements OnInit {
   readURL() {
     this.auth.afAuth.onAuthStateChanged((user) => {
       if (user) {
-        this.auth.fillAdmins();
+       this.auth.fillAdmins(); //permite mostrar a los admin el link a users
         this.imageURL = this.db.getUserImage(user).pipe(
           map((data) => {
             console.log('DATA: ', data.payload.val());

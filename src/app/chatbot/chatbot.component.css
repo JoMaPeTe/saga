@@ -29,7 +29,7 @@ img {
 }
 
 .active {
-  width: 7em;
+  width: 10em;
   float: left;
   margin-top: 1.5em;
 }
@@ -49,7 +49,7 @@ img {
 
 .chat-page {
   padding: 0 0 23em 0;
-
+color: #646464;
 
 
 }
@@ -91,7 +91,7 @@ img {
 .received-msg-inbox p {
   background: #efefef none repeat scroll 0 0;
   border-radius: 10px;
-  color: #646464;
+
   font-size: .9em;
   margin: 0;
   padding: .3em .6em .3em .8em;
@@ -129,7 +129,7 @@ img {
 }
 
 .msg-bottom{
-  position: relative;
+  position: block;
   height: 10%;
   background-color: #007bff;
 }
@@ -138,14 +138,14 @@ img {
   float:right;
   margin-top: 0.8em;
   margin-right: 1.4em;
-  outline: none impo !important;
   border-radius: 1.4em;
-  width: 90% !important;
+  width: 96%;
   background-color: #fff;
 }
 .form-control{
   border:none !important;
   border-radius: 1.4em!important;
+  width: 96%;
 }
 /* .input-group-text{
   background: transparent !important;
@@ -155,8 +155,8 @@ img {
 /* .input-group-append{
   background: lightblue;
 } */
-.form-control:focus{
+/* .form-control:focus{
   border-color: none !important;
   box-shadow: none !important;
   border-radius: 1.4em;
-}
+} */

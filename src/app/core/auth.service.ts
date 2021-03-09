@@ -22,6 +22,7 @@ export class AuthService implements OnInit {
   imageURL: any = null;
   darkForm: any;
   isLogged: boolean;
+  userId:string;
   constructor(
     public afAuth: AngularFireAuth, //atributo publico de la clase del tipo AngularFireAuth
     private router: Router,
@@ -39,6 +40,7 @@ export class AuthService implements OnInit {
       if (authState) {
         this.authUser = authState;
         this.isLogged = true;
+        this.userId=authState.uid;
         return authState;
       } else {
         this.isLogged = false;
@@ -107,7 +109,7 @@ export class AuthService implements OnInit {
         (res) => {
           console.log('user logado con mail: ', res.user.email);
           console.log(res.user.emailVerified);
-
+          this.userId=res.user.uid;
           this.firedb.updateUserData(res.user);
           this.arrayAdmins = [''];
           this.isLogged = true;
@@ -132,7 +134,7 @@ export class AuthService implements OnInit {
       this.afAuth.signInWithPopup(provider).then(
         (res) => {
           console.log('user logado: ', res);
-
+          this.userId=res.user.uid;
           this.firedb.updateUserData(res.user);
           this.arrayAdmins = [''];
           this.isLogged = true;
@@ -153,13 +155,14 @@ export class AuthService implements OnInit {
     console.log(this.authUser.email + ' logout!');
     this.router.navigate(['/']);
     this.isLogged=false;
+    this.userId='';
     this.afAuth.signOut();
   }
 
   /** Añadimos un elemento isAdmin al objeto authUser
    * Si es nulo o negativo lo hace true y viceversa.
    */
-
+// CUSTOM CLAIMS CON FUNCTION EN FRONTEND---SI DA TIEMPO PARA APLICAR RULES EN BD
   toggleAdminRole() {
     console.log(
       'El SDK admin de firebase esta pensado para backend. Tienes que hacer setcustomclaims con functions, o con un servidor heroku teniendo en cuenta tokens '
@@ -208,7 +211,10 @@ export class AuthService implements OnInit {
   getSwitch() {
     return this.darkForm;
   }
-// CUSTOM CLAIMS CON FUNCTION EN FRONTEND---SI DA TIEMPO PARA APLICAR RULES EN BD
+ getUserId() {
+  return this.userId;
+}
+
 
 
 }

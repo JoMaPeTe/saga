@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../core/auth.service';
 import { Subscription } from 'rxjs';
+
+const dialogflowURL = 'https://4d17986d019e.ngrok.io/gateway'; //'https://YOUR-CLOUDFUNCTION/dialogflowGateway';
+
 @Component({
   selector: 'app-chatbot',
   templateUrl: './chatbot.component.html',
@@ -10,9 +13,10 @@ import { Subscription } from 'rxjs';
 export class ChatbotComponent implements OnInit {
   messages= <any>[];
   loading = false;
-  dialogflowURL = 'https://b7cef84cda27.ngrok.io/gateway'; //'https://YOUR-CLOUDFUNCTION/dialogflowGateway';
+
   // Random ID to maintain session with server https://cloud.google.com/dialogflow/es/docs/quick/api
-  sessionId = Math.random().toString(36).slice(-5);
+  sessionId:string
+
   imageURL:any ;
   darkSubscription: Subscription;
 
@@ -21,21 +25,25 @@ export class ChatbotComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.addBotMessage('Human presence detected 🤖. How can I help you? ');
+    this.sessionId= Math.random().toString(36).slice(-5)+ this.auth.getUserId();
+    console.log("sesionID desde chatComponent  " + this.sessionId);
     this.darkChat();
-    this.auth.afAuth.onAuthStateChanged(()=>{
-     this.imageURL= this.auth.getImageURL()
-    })
 
-  this.addBotMessage('Human presence detected 🤖. How can I help you? ');
+    this.auth.afAuth.onAuthStateChanged(()=>{
+     this.imageURL= this.auth.getImageURL();
+
+    })
   }
 
+//Metodo para que si se toca el switch de modo oscuro, cambie el fondo del chat
 darkChat(){
   this.darkSubscription = this.auth.getSwitch().get('switch').valueChanges.subscribe((value) => {
       const chat = document.getElementById('msg-inbox');
       if(value){
-        chat.setAttribute('class', 'bg-dark');
+        chat.setAttribute('class', 'bg-dark  text-white');
       }else{
-        chat.setAttribute('class', 'msg-inbox');
+        chat.setAttribute('class', 'msg-inbox text-dark');
       }
   });
 }
@@ -49,18 +57,19 @@ handleUserMessage(event: any) {
 
     // Make the request
     this.http.post<any>(
-      this.dialogflowURL,
+      dialogflowURL,
       {
         sessionId: this.sessionId,
         queryInput: {
           text: {
             text,
-            languageCode: 'es-ES>'
+            languageCode: 'es'
           }
         }
       }
     )
     .subscribe(res => {
+     // console.log("res antes de addbotMess"+JSON.stringify(res))
       const { fulfillmentText } = res;
       this.addBotMessage(fulfillmentText);
       this.loading = false;
@@ -70,7 +79,7 @@ handleUserMessage(event: any) {
   addUserMessage(text: any) {
     this.messages.push({
       text,
-      sender: 'You',
+      sender: 'Tu',
       reply: true,
       avatar: this.imageURL,
       date: new Date()
@@ -81,7 +90,7 @@ handleUserMessage(event: any) {
     this.messages.push({
       text,
       sender: 'Bot',
-      avatar: '../../assets/imagenes/bot.jpg',
+      avatar: '../../assets/bot.jpeg',
       date: new Date()
     });
   }
