@@ -5,6 +5,8 @@ import { ChatbotComponent } from './chatbot/chatbot.component';
 import { AuthGuard } from './core/auth.guard';
 import { EventosComponent } from './eventos/eventos.component';
 import { HomeComponent } from './home/home.component';
+import { PlanningComponent } from './planning/planning.component';
+import { ReservasUserComponent } from './reservas-user/reservas-user.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TiendaComponent } from './tienda/tienda.component';
 import { UserComponent } from './user/user.component';
@@ -16,6 +18,8 @@ const routes: Routes = [
   {path:'users',component:UserComponent},
   {path:'settings',component:SettingsComponent,canActivate: [AuthGuard]},
   {path:'chatbot',component:ChatbotComponent, canActivate: [AuthGuard]},
+  {path:'misreservas',component:ReservasUserComponent,canActivate: [AuthGuard]},
+  {path:'planning',component:PlanningComponent,canActivate: [AuthGuard]},
 ];
 
 @NgModule({

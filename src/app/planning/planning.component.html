@@ -1,0 +1,124 @@
+<div class="card" class="text-dark bg-info text-center">
+  <div class="card-body">
+    <h4 class="card-title">Planificación de Actividades</h4>
+
+    <form [formGroup]="planningForm" (ngSubmit)="updateActivities()"autocomplete="on">
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="tenis"
+            name="activityType"
+            #activityType
+            formControlName="activityType"
+            value="tenis"
+            checked
+          >
+          <label class="form-check-label" for="tenis">Tenis</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="padel"
+            #activityType
+            name="activityType"
+            formControlName="activityType"
+            value="padel"
+          >
+          <label class="form-check-label" for="padel">Padel</label>
+        </div>
+
+      </div>
+<br>
+      <div class="form-group">
+        <label for="activityDay">Día</label>
+        <input
+          type="date"
+          id="activityDay"
+          #activityDay
+          class="form-control"
+          formControlName="activityDay"
+        >
+   <div class="form-text">Marque un día del calendario</div>
+        <div class="invalid-feedback" *ngIf="handleError('activityDay', 'required')">
+          Para crear una actividad se sebe seleccionar un dia.
+        </div>
+      </div>
+<br>
+      <div class="form-group">
+        <label for="activityHour">Hora</label>
+        <br>
+        <select
+          class="custom-select"
+          id="activityHour"
+          #activityHour
+          formControlName="activityHour"
+          autocomplete="on"
+          multiple
+        >
+          <option selected>Seleccione horas</option>
+          <option value="10:00">10:00</option>
+          <option value="11:00">11:00</option>
+          <option value="12:00">12:00</option>
+          <option value="13:00">13:00</option>
+          <option value="16:00">16:00</option>
+          <option value="17:00">17:00</option>
+          <option value="18:00">18:00</option>
+          <option value="19:00">19:00</option>
+          <option value="20:00">20:00</option>
+          <option value="21:00">21:00</option>
+        </select>
+        <div class="form-text">Opción múltiple</div>
+      </div>
+      <br>
+      <div class="">
+        <button type="submit" class="btn btn-primary" >
+          <i class="fas fa-plus-circle"></i>
+          Añade Actividad</button>
+          <button class="btn btn-secondary" type="reset" (click)="resetForm()">
+            <i class="fas fa-sync-alt"></i>Reset
+          </button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- ////////////TABLAS READ/////////////} -->
+<div class="sectionDiv">
+  <h3>Planificadas</h3>
+  <table
+    class="table table-success table-striped table-hover align-middle text-center caption-top"
+  >
+    <caption class="text-dark">
+      Actividades Planificadas
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Tipo Actividad</th>
+        <th scope="col">Dia</th>
+        <th scope="col">Hora</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let activity of planning">
+        <td>
+          {{ activity.type }}
+        </td>
+        <td>
+          {{ activity.day }}
+        </td>
+        <td>
+          {{ activity.hour }}
+        </td>
+
+        <td>
+          <button class="btn btn-danger" (click)="db.removeActivity(activity)">
+            BORRAR
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

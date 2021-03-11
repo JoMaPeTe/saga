@@ -1,0 +1,38 @@
+<div class="sectionDiv">
+  <h1>Reserva</h1>
+
+  <table
+    class="table table-success table-striped table-hover align-middle text-center caption-top"
+  >
+    <caption class="text-dark">
+      Su reserva
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Actividad</th>
+        <th scope="col">Dia</th>
+        <th scope="col">Hora</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngIf="reserva | async as res">
+        <td>
+          {{ res.actividad }}
+        </td>
+        <td>
+          {{ res.dia }}
+        </td>
+        <td>
+          {{ res.hora }}
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="db.removeReservation(userId)">
+            BORRAR
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

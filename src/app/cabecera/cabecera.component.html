@@ -56,6 +56,9 @@
           si no está logueado, al tener el guard de canActivate -->
           <div *ngIf="auth.checkAdmin(user.email)">
             <li class="nav-item">
+              <a class="nav-link" routerLink="planning">Planning</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" routerLink="users">Users</a>
             </li>
           </div>
@@ -66,6 +69,9 @@
 
           <li class="nav-item">
             <a class="nav-link" routerLink="chatbot">Chatbot</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="misreservas">Reserva</a>
           </li>
         </ul>
       </div>

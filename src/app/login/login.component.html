@@ -1,6 +1,6 @@
 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
   <div class="modal-content">
-    <form  method="post" [formGroup]="loginForm" autocomplete="on" >
+    <form   [formGroup]="loginForm" autocomplete="on" >
       <div class="modal-header">
         <h1 class="header modal-title" >Login</h1>
         <button
@@ -16,7 +16,7 @@
           <label for="login-email">Dirección de Email </label>
           <input
             type="email"
-            #loginEmail id="login-email"
+            id="login-email"
             formControlName="email"
             class="form-control"
             autocomplete="username"

@@ -27,12 +27,13 @@ import { SettingsComponent } from './settings/settings.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './core/auth.guard';
-import { ChatModule } from './chat/chat.module'
 
 
 import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbIconModule } from '@nebular/theme';
+import { ReservasUserComponent } from './reservas-user/reservas-user.component';
+import { PlanningComponent } from './planning/planning.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,8 @@ import { NbIconModule } from '@nebular/theme';
     UserComponent,
     SettingsComponent,
     ChatbotComponent,
+    ReservasUserComponent,
+    PlanningComponent,
 
 
   ],
@@ -63,7 +66,6 @@ import { NbIconModule } from '@nebular/theme';
     AngularFireDatabaseModule,
     ReactiveFormsModule,
     HttpClientModule,
-     ChatModule,
      NbThemeModule.forRoot({ name: 'default' }),
      NbLayoutModule,
      NbEvaIconsModule,

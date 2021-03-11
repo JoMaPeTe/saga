@@ -19,7 +19,7 @@
       <img src="../../assets/imagenes/bot.jpg" alt="imagen de un robot" />
     </div>
     <div class="active">
-      <h4>Herbies</h4>
+      <h4>Jerbies</h4>
       <h6>Conversation with a bot...</h6>
     </div>
   </div>
@@ -29,7 +29,7 @@
         <div class="msg-page" >
 
 
-          <nb-chat title="Conversation with a Bot">
+          <nb-chat title="Chatbot" >
             <nb-chat-message *ngFor="let msg of messages"
                              type="text"
                              [message]="msg.text"
@@ -42,63 +42,22 @@
 
           <nb-chat-message *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="info"
             type="text"
-            avatar="../../assets/imagenes/bot.jpg"
+            avatar="🤖"
             message="...">
 
           </nb-chat-message>
-
-
-
           </nb-chat>
-
-          <!-- <div *ngFor="let msg of messages"
-          type="text"
-          [message]="msg.text"
-          [reply]="msg.reply"
-          [sender]="msg.sender"
-          [date]="msg.date"
-          [avatar]="msg.avatar">
-          <div class="received-chats"  >
-            <div class="received-chats-img" >
-              <img src={{avatar}} />
-            </div>
-            <div class="received-msg">
-              <div class="received-msg-inbox">
-                <p>{{message}}</p>
-                <span class="time">{{date}}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="outgoing-chats">
-            <div class="outgoing-chats-msg">
-                <p>{{reply}}</p>
-                <span class="time">{{date}}</span>
-            </div>
-            <div class="outgoing-chats-img" *ngIf="imageURL">
-              <img [src]="imageURL" />
-            </div>
-          </div>
-
-        </div> -->
-
-
-
-
 
         </div>
       </div>
     </div>
 
-    <div class="msg-bottom">
+    <div class="msg-bottom" >
 
-      <nb-chat-form (send)="handleUserMessage($event)" [dropFiles]="false" >
+      <nb-chat-form (send)="handleUserMessage($event)" [dropFiles]="false"  >
       </nb-chat-form>
 
-      <!-- <div class="input-group">
-        <input type="text" class="form-control" placeholder="escribe un mensaje..">
-        <button type="submit" class="btn btn-success" (click)="handleUserMessage($event)" ><i class="far fa-paper-plane"></i></button>
-    </div> -->
+
 
   </div>
 </div>

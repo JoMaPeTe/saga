@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChatDialogComponent } from './chat-dialog.component';
+import { ReservasUserComponent } from './reservas-user.component';
 
-describe('ChatDialogComponent', () => {
-  let component: ChatDialogComponent;
-  let fixture: ComponentFixture<ChatDialogComponent>;
+describe('ReservasUserComponent', () => {
+  let component: ReservasUserComponent;
+  let fixture: ComponentFixture<ReservasUserComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChatDialogComponent ]
+      declarations: [ ReservasUserComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChatDialogComponent);
+    fixture = TestBed.createComponent(ReservasUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

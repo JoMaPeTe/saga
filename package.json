@@ -28,7 +28,6 @@
     "@nebular/eva-icons": "^7.0.0",
     "@nebular/security": "^7.0.0",
     "@nebular/theme": "^7.0.0",
-    "api-ai-javascript": "^2.0.0-beta.21",
     "bootstrap": "^5.0.0-beta2",
     "cors": "^2.8.5",
     "dialogflow": "^1.2.0",

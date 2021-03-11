@@ -14,7 +14,7 @@ img {
 .msg-header {
   border: 1px solid #ccc;
   width: 100%;
-  height: 10%;
+  height: 10vh;
   border-bottom: none;
   display: inline-block;
   background-color: #007bff;
@@ -68,35 +68,11 @@ color: #646464;
 }
 
 .msg-page {
-  height: 32em;
+  height: 45vh;
   overflow-y: auto;
 }
 
-.received-chats-img {
-  width: 2em;
-  float: left;
-}
 
-.received-msg {
-  display: inline-block;
-  padding: 0 0 0 0.6em;
-  vertical-align: top;
-  width: 92%;
-}
-
-.received-msg-inbox {
-  width: 57%;
-}
-
-.received-msg-inbox p {
-  background: #efefef none repeat scroll 0 0;
-  border-radius: 10px;
-
-  font-size: .9em;
-  margin: 0;
-  padding: .3em .6em .3em .8em;
-  width: 100%;
-}
 
 .time {
   display: block;
@@ -104,59 +80,40 @@ color: #646464;
   margin: .5em 0 0 .5em;
 }
 
-.outgoing-chats{
-  overflow: hidden;
-  margin: 1.6em 1.25em;
-}
-.outgoing-chats-msg p{
-  background: #007bff none repeat scroll;
-  border-radius: 10px;
-  color: #fff;
-  font-size: .9em;
-  margin: 0;
-  padding: .3em .6em .3em .8em;
-  width: 100%;
-}
-
-.outgoing-chats-msg{
-  float:left;
-  width: 46%;
-  margin-left: 45%;
-}
-.outgoing-chats-img{
-  width: 2em;
-  float: right;
-}
 
 .msg-bottom{
   position: block;
-  height: 10%;
+  height: 10vh;
   background-color: #007bff;
+  display: flex;
+  align-items: center;
+}
+::ng-deep .sender{
+  font-size: small;
+  color:blue;
 }
 
-.input-group{
-  float:right;
-  margin-top: 0.8em;
-  margin-right: 1.4em;
-  border-radius: 1.4em;
-  width: 96%;
-  background-color: #fff;
-}
-.form-control{
-  border:none !important;
-  border-radius: 1.4em!important;
-  width: 96%;
-}
-/* .input-group-text{
-  background: transparent !important;
-  border: none !important;
-} */
+::ng-deep svg{
 
-/* .input-group-append{
-  background: lightblue;
-} */
-/* .form-control:focus{
-  border-color: none !important;
-  box-shadow: none !important;
-  border-radius: 1.4em;
-} */
+  width:100%;
+}
+::ng-deep .message-row{
+  flex-flow: column;
+  justify-content:space-between;
+  text-align: center;
+
+}
+::ng-deep nb-layout-column {
+  justify-content: center;
+  display: flex;
+
+}
+::ng-deep .send-button{
+  width: 80%;
+  height: 40%;
+
+}
+::ng-deep .message-row > input{
+  width: 90%!important;
+  margin-bottom: 2px;
+}

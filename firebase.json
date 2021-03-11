@@ -2,7 +2,9 @@
   "database": {
     "rules": "database.rules.json"
   },
+
   "hosting": {
+    "site": "sagapista",
     "public": "dist/proyectoFinal",
     "ignore": [
       "firebase.json",

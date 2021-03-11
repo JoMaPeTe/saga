@@ -1,6 +1,6 @@
-import { JsonPipe } from '@angular/common';
-import { Component, Input, OnInit, } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+
+import { Component,  OnInit, } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../core/auth.service';
 import { FireDBService } from '../core/fire-db.service';
