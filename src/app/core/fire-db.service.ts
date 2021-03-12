@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Activity } from '../models/activity.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FireDBService {
+  activityList: AngularFireList<any>;
+  selectedActivity: Activity = new Activity();
   constructor(private db: AngularFireDatabase) {}
 
   //Login
@@ -82,23 +84,45 @@ export class FireDBService {
   }
 
   //Planned Activities CRUD
-  createActivity(activity: Activity) {
-    const path = `actividad/${activity.type}/${activity.day}/`;
-    const text = `{"${activity.hour}":"true"}`;
-    const obj = JSON.parse(text);
+  // createActivity(activity: Activity) {
+  //   const path = `actividad/${activity.type}/${activity.day}/`;
+  //   const text = `{"${activity.hour}":"true"}`;
+  //   const obj = JSON.parse(text);
 
-    this.db
-      .object(path)
-      .update(obj)
-      .catch((error) => console.log(error));
-  }
+  //   this.db
+  //     .object(path)
+  //     .update(obj)
+  //     .catch((error) => console.log(error));
+  // }
+  // getActivities() {
+  //   const path = 'actividad/';
+  //   return this.db.list(path).snapshotChanges();
+  // }
+  // removeActivity(activity: Activity) {
+  //   const path = `actividad/${activity.type}/${activity.day}/${activity.hour}`;
+  //   return this.db.object(path).remove();
+  // }
+
   getActivities() {
-    const path = 'actividad/';
-    //return this.db.list(path).valueChanges();
-    return this.db.list(path).snapshotChanges();
+    return (this.activityList = this.db.list('actividades'));
   }
-  removeActivity(activity: Activity) {
-    const path = `actividad/${activity.type}/${activity.day}/${activity.hour}`;
-    return this.db.object(path).remove();
+
+  createActivity(activity: Activity) {
+    this.activityList.push({
+      type: activity.type,
+      day: activity.day,
+      hour: activity.hour,
+    });
   }
-}
+
+
+  removeActivity($key: string){
+this.activityList.remove($key)
+  }
+
+
+  }
+
+
+
+
