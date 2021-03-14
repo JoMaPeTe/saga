@@ -6,14 +6,7 @@
   language-code="es"
 ></df-messenger> -->
 
-
-
-
-
-
-
 <div class="container">
-
   <div class="msg-header">
     <div class="msg-header-img">
       <img src="../../assets/imagenes/bot.jpg" alt="imagen de un robot" />
@@ -23,41 +16,37 @@
       <h6>Conversation with a bot...</h6>
     </div>
   </div>
-  <div class="chat-page" >
-    <div class="msg-inbox" id="msg-inbox">
-      <div class="chats" >
-        <div class="msg-page" >
-
-
-          <nb-chat title="Chatbot" >
-            <nb-chat-message *ngFor="let msg of messages"
-                             type="text"
-                             [message]="msg.text"
-                             [reply]="msg.reply"
-                             [sender]="msg.sender"
-                             [date]="msg.date"
-                             [avatar]="msg.avatar">
+  <div class="chat-page">
+    <div class="chat" id="msg-inbox">
+      <div class="msg-page" id="msg-page">
+        <nb-chat title="Chatbot">
+          <nb-chat-message
+            *ngFor="let msg of messages"
+            type="text"
+            [message]="msg.text"
+            [reply]="msg.reply"
+            [sender]="msg.sender"
+            [date]="msg.date"
+            [avatar]="msg.avatar"
+          >
           </nb-chat-message>
 
-
-          <nb-chat-message *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="info"
+          <nb-chat-message
+            *ngIf="loading"
+            [nbSpinner]="loading"
+            nbSpinnerStatus="info"
             type="text"
             avatar="🤖"
-            message="...">
-
+            message="..."
+          >
           </nb-chat-message>
-          </nb-chat>
-
-        </div>
+        </nb-chat>
       </div>
     </div>
 
-    <div class="msg-bottom" >
-
-      <nb-chat-form (send)="handleUserMessage($event)" [dropFiles]="false"  >
+    <div class="msg-bottom">
+      <nb-chat-form (send)="handleUserMessage($event)" [dropFiles]="false">
       </nb-chat-form>
-
-
-
+    </div>
   </div>
 </div>

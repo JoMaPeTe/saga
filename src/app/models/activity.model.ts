@@ -1,5 +1,7 @@
 export class Activity {
- type: string;
- day:string;
- hour: string
+
+  type: string;
+  day: string;
+  hour:string;
+  value: string;
 }

@@ -34,6 +34,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbIconModule } from '@nebular/theme';
 import { ReservasUserComponent } from './reservas-user/reservas-user.component';
 import { PlanningComponent } from './planning/planning.component';
+import { ActivityListComponent } from './planning/activity-list/activity-list.component';
+import { ActivityComponent } from './planning/activity/activity.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +51,8 @@ import { PlanningComponent } from './planning/planning.component';
     ChatbotComponent,
     ReservasUserComponent,
     PlanningComponent,
+    ActivityListComponent,
+    ActivityComponent,
 
 
   ],

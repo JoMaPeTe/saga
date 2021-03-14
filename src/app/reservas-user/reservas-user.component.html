@@ -19,13 +19,13 @@
     <tbody>
       <tr *ngIf="reserva | async as res">
         <td>
-          {{ res.actividad }}
+          {{ res.type }}
         </td>
         <td>
-          {{ res.dia }}
+          {{ res.day }}
         </td>
         <td>
-          {{ res.hora }}
+          {{ res.hour }}
         </td>
         <td>
           <button class="btn btn-danger" (click)="db.removeReservation(userId)">

@@ -54,17 +54,14 @@ color: #646464;
 
 }
 
-.msg-inbox {
-  border: 1px solid #ccc;
-  overflow: hidden;
-  padding-bottom: 2em;
-  background-color: #fff;
-}
 
-.chats {
+
+.chat {
   padding: 2em 1em 0 1.5em;
   border: 1px solid #ccc;
-
+  overflow:scroll;
+  padding-bottom: 2em;
+  background-color: #fff;
 }
 
 .msg-page {
@@ -90,7 +87,7 @@ color: #646464;
 }
 ::ng-deep .sender{
   font-size: small;
-  color:blue;
+  color:tomato;
 }
 
 ::ng-deep svg{
