@@ -37,12 +37,15 @@ export class CabeceraComponent implements OnInit {
   }
   darkLight() {
     const body = document.getElementById('body');
+    const cabecera = document.getElementById('cabecera');
     this.auth.setSwitch(this.darkForm);
     this.darkForm.get('switch').valueChanges.subscribe((value) => {
       if (value) {
         body.setAttribute('class', 'bg-dark text-white');
+        cabecera.setAttribute('class', 'navbar navbar-expand-md my-0 h5 bg-dark text-white');
       } else {
         body.setAttribute('class', 'bg-img');
+        cabecera.setAttribute('class', 'navbar navbar-expand-md bg-primary my-0 h5');
       }
     });
   }

@@ -15,18 +15,18 @@
 }
 
 html {
-  /* height: 100vh; */
+  height: 100vh;
   width: 100%;
   box-sizing: border-box;
-
+  overflow:visible;
 }
 
 body {
   color: #bfe654;
   box-sizing: border-box;
-  /* height: 100vh; */
+  height: 100%;
   /* width: 100%; */
-  min-width: max-content;
+  /* min-width: max-content; */
   overflow-x: scroll;
 }
 
@@ -44,61 +44,68 @@ body {
 .bg-img {
   /* The image used */
   background-image: url('./assets/imagenes/pista-dura-azul.jpg');
-  /* height: 100vh; */
+  height: 100%;
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  min-width: max-content;
-  width: auto;
+
+  width:100%;
 }
 
 .container {
   overflow-x: auto;
   /* height: auto; */
-  width: auto;
+  /* width: auto; */
 }
 
 /* ::ng-deep .container {
   overflow-x: auto;
 } */
 
-ul.navbar-nav,
-a.nav-link {
+/* ul .navbar-nav,
+a .nav-link {
 text-decoration: none;
-  color: #bbff00 !important
-}
+
+} */
 
 .btn {
   border-radius: 3rem;
 
 }
-
-.loginDiv {
+.btnGreen{
+  background-color: #bcd8c1;
+}
+/* .loginDiv {
   text-align: center;
   width: 50%;
   padding: .75rem;
   float: none;
   box-sizing: border-box;
+} */
+
+.userDiv{
+
+  margin-left: 1rem;
 }
-
-.userDiv {
-  padding: .75rem;
-  float: right;
-
-}
-
+/*
 .sectionDiv {
-  text-align: center;
+
   width: 100%;
   padding: .75rem;
   float: none;
-  margin: auto;
+
+} */
+
+a{
+  text-decoration: none;
+  color: #bfe654;
 }
 
-
-
-
+a:hover{
+  text-decoration: none;
+  color: #ffffff;
+}
 
 
 
