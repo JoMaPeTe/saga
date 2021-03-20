@@ -33,7 +33,6 @@ export class AuthService implements OnInit {
   ngOnInit(): void {}
 
   //Observador para asegurar que la autenticación no está en proceso. Asyncpipe desde template
-
   user: any = this.afAuth.authState.pipe(
     map((authState) => {
       //console.log('authState: ', authState);
@@ -41,7 +40,10 @@ export class AuthService implements OnInit {
         this.authUser = authState;
         this.isLogged = true;
         this.userId=authState.uid;
-        return authState;
+        this.authUser.getIdTokenResult().then(idTokenResult => {
+          this.authUser.admin =idTokenResult.claims.admin;
+        });
+        return this.authUser;
       } else {
         this.isLogged = false;
         if (this.adminSubscription) {
@@ -159,18 +161,13 @@ export class AuthService implements OnInit {
     this.afAuth.signOut();
   }
 
-  /** Añadimos un elemento isAdmin al objeto authUser
-   * Si es nulo o negativo lo hace true y viceversa.
-   */
-// CUSTOM CLAIMS CON FUNCTION EN FRONTEND---SI DA TIEMPO PARA APLICAR RULES EN BD
-  toggleAdminRole() {
-    console.log(
-      'El SDK admin de firebase esta pensado para backend. Tienes que hacer setcustomclaims con functions, o con un servidor heroku teniendo en cuenta tokens '
-    );
-  }
+
+
+
   /**
-   * Si alguien está logado, comprueba en tiempo real y queda escuchando si es admin en la base de datos
-   *
+   * TABLA USERS
+   * queda escuchando si es admin en la base de datos
+   *y rellena un array con admins
    */
   fillAdmins() {
     this.adminSubscription = this.firedb.getAdmins().subscribe((snap) => {
@@ -185,7 +182,13 @@ export class AuthService implements OnInit {
       console.log('admins: ', this.arrayAdmins);
     });
   }
-
+/**
+ * Comprueba si un user es admin en el array del metodo fillAdmins
+ * que se rellenó a partir de la base de datos.
+ * En la tabla users devolverá true, si el user es admin
+ * @param val
+ * @returns
+ */
   checkAdmin(val) {
     const isMatch = this.arrayAdmins.filter((obj) => obj.email == val);
     let res: boolean = false;

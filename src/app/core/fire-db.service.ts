@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Activity } from '../models/activity.model';
+import { AngularFireFunctions } from '@angular/fire/functions';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +10,10 @@ import { Activity } from '../models/activity.model';
 export class FireDBService {
   // activityList: AngularFireList<any>;
 
-  constructor(private db: AngularFireDatabase) {}
+  constructor(private db: AngularFireDatabase,
+    private fns:AngularFireFunctions,
+    private toastr: ToastrService) { }
+
 
   //Login
   updateUserData(user: any) {
@@ -31,11 +36,17 @@ export class FireDBService {
   }
 
   removeUser(userUid: any) {
-    const path = 'users/' + userUid;
-    return this.db.object(path).remove();
-  }
+    let removeUser = null;
+    if (confirm('Are you sure you want to delete')) {
+        const path = 'users/' + userUid;
+         removeUser= this.db.object(path).remove();
+        this.toastr.success('Success', 'Activity deleted');
+      }
+      return removeUser
+    }
 
   makeAdmin(user: any) {
+    //añadimos al user en la base de datos de admins en Real Time
     const path = 'admins/' + user.key;
     const u = {
       email: user.email,
@@ -44,10 +55,16 @@ export class FireDBService {
       .object(path)
       .update(u)
       .catch((error) => console.log(error));
+    //Hacemos la custom claim
+    const addAdminRole = this.fns.httpsCallable('addAdminRole');
+     addAdminRole({email: user.email }).subscribe((result) => { this.toastr.success('', `${result.message}`);});
+
   }
-  removeAdmin(userUid: any) {
-    const path = 'admins/' + userUid;
-    return this.db.object(path).remove();
+  removeAdmin(user: any) {
+    const path = 'admins/' + user.key;
+    this.db.object(path).remove();
+     const removeAdminRole = this.fns.httpsCallable('removeAdminRole');
+    removeAdminRole({email: user.email }).subscribe((result) => {  this.toastr.success('', `${result.message}`);});
   }
 
   //User Settings
@@ -79,6 +96,7 @@ export class FireDBService {
     return this.db.object(path).snapshotChanges();
   }
   removeReservation(userId: any) {
+
     const pathRes = `users/${userId}/Reserva/`;
     let activityReserved: Activity = new Activity();
     //Primero modificamos la actividad planificada para el usuario y luego la eliminamos de su página reserva

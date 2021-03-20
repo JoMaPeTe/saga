@@ -1,45 +1,79 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:wght@600&display=swap');
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import 'toast.css';
 @import '~@nebular/theme/styles/prebuilt/default.css';
-*{
+
+* {
   box-sizing: border-box;
-  margin:0%;
+  margin: 0%;
   padding: 0%;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-html {
-  height: 100vh;
-  box-sizing: border-box;
+  font-family: 'Press Start 2P', cursive;
+  font-family: 'Roboto Mono', monospace;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Helvetica Neue", sans-serif, ;
 }
 
-body {  color: #bfe654;
-  box-sizing: border-box;  }
+html {
+  /* height: 100vh; */
+  width: 100%;
+  box-sizing: border-box;
+
+}
+
+body {
+  color: #bfe654;
+  box-sizing: border-box;
+  /* height: 100vh; */
+  /* width: 100%; */
+  min-width: max-content;
+  overflow-x: scroll;
+}
 
 
 .result {
   border-radius: 2rem;
 }
 
+.bg-dark {
+  /* height: 100vh; */
+  background-size: cover;
+  width: auto;
+}
 
 .bg-img {
   /* The image used */
   background-image: url('./assets/imagenes/pista-dura-azul.jpg');
-
+  /* height: 100vh; */
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
+  min-width: max-content;
+  width: auto;
 }
 
-ul.navbar-nav, a.nav-link{color: #bbff00!important}
+.container {
+  overflow-x: auto;
+  /* height: auto; */
+  width: auto;
+}
 
-.btn{
+/* ::ng-deep .container {
+  overflow-x: auto;
+} */
+
+ul.navbar-nav,
+a.nav-link {
+text-decoration: none;
+  color: #bbff00 !important
+}
+
+.btn {
   border-radius: 3rem;
 
 }
+
 .loginDiv {
   text-align: center;
   width: 50%;
@@ -50,7 +84,7 @@ ul.navbar-nav, a.nav-link{color: #bbff00!important}
 
 .userDiv {
   padding: .75rem;
-  float:right;
+  float: right;
 
 }
 
@@ -65,29 +99,13 @@ ul.navbar-nav, a.nav-link{color: #bbff00!important}
 
 
 
-a,
-a:visited,
-a:hover {
-  color: #c0d219;
-  text-decoration: none;
-}
-
-a:hover {
-  color: #125699;
-}
-
-
-footer {
-
-  display: block;
-  align-items: center;
-
-}
 
 
 
 
-.modal-content{
+
+
+.modal-content {
   background-color: #4f94e4;
   border-radius: 2.5rem;
   box-shadow: 13px 13px 20px #74aef0, -13px -13px 20px #ffffff;
@@ -96,14 +114,14 @@ footer {
 
 .custom-form input {
   display: block;
-   width: 100%;
+  width: 100%;
   border-radius: 0.5rem;
-   border: none;
-  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
-      rgba(0, 0, 0, 0.1);
+  border: none;
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px rgba(0, 0, 0, 0.1);
   border: 0 none;
   background: #ebf5fc;
 }
+
 .modal-footer button {
   text-transform: uppercase;
   letter-spacing: 0.15em;

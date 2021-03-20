@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../core/auth.service';
 import { Subscription } from 'rxjs';
-//import { ChatShowcaseService } from './chat-showcase.service';
-const dialogflowURL = 'https://884a05ea5faa.ngrok.io/gateway'; //'https://YOUR-CLOUDFUNCTION/dialogflowGateway';
+
+const dialogflowURL = 'https://europe-west6-saga-1f81f.cloudfunctions.net/dialogflowGateway'; //'https://YOUR-CLOUDFUNCTION/dialogflowGateway';
 
 @Component({
   selector: 'app-chatbot',

@@ -1,38 +1,36 @@
-<div class="sectionDiv">
-  <h1>Reserva</h1>
+<h1 class="text-center">Reserva</h1>
+<hr />
+<table
+  class="table table-success table-striped table-hover align-middle text-center caption-top"
+>
+  <caption class="text-dark">
+    Su reserva
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col">Actividad</th>
+      <th scope="col">Dia</th>
+      <th scope="col">Hora</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
 
-  <table
-    class="table table-success table-striped table-hover align-middle text-center caption-top"
-  >
-    <caption class="text-dark">
-      Su reserva
-    </caption>
-    <thead>
-      <tr>
-        <th scope="col">Actividad</th>
-        <th scope="col">Dia</th>
-        <th scope="col">Hora</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngIf="reserva | async as res">
-        <td>
-          {{ res.type }}
-        </td>
-        <td>
-          {{ res.day }}
-        </td>
-        <td>
-          {{ res.hour }}
-        </td>
-        <td>
-          <button class="btn btn-danger" (click)="db.removeReservation(userId)">
-            BORRAR
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <tbody>
+    <tr *ngIf="reserva | async as res">
+      <td>
+        {{ res.type }}
+      </td>
+      <td>
+        {{ res.day }}
+      </td>
+      <td>
+        {{ res.hour }}
+      </td>
+      <td>
+        <button class="btn btn-danger" (click)="removeReservation(userId)">
+          BORRAR
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

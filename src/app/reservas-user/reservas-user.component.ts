@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../core/auth.service';
 import { FireDBService } from '../core/fire-db.service';
@@ -10,7 +11,8 @@ import { FireDBService } from '../core/fire-db.service';
 export class ReservasUserComponent implements OnInit {
   userId = this.auth.userId;
   reserva = {};
-  constructor(public db: FireDBService, public auth: AuthService) {}
+  constructor(public db: FireDBService, public auth: AuthService,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.auth.userId;
@@ -29,5 +31,13 @@ export class ReservasUserComponent implements OnInit {
         return res;
       })
     );
+  }
+
+
+  removeReservation(userId: any) {
+    if (confirm('Are you sure you want to delete')) {
+      this.db.removeReservation(userId);
+      this.toastr.success('Success', 'Reservation deleted');
+    }
   }
 }

@@ -6,20 +6,21 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class OnlyAdminGuard implements CanActivate {
   constructor(private auth: AuthService,
     private myRoute: Router){}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.auth.getIsLogged()){
-        console.log( 'canActiva '+ this.auth.getIsLogged())
+
+      if(this.auth.authUser && this.auth.authUser.admin){
+      //  console.log( 'canActivaAdmin '+ this.auth.authUser.admin)
         return true;
       }else{
         this.myRoute.navigate(["/"]);
         return false;
-      }
-
+      };
   }
 
 }

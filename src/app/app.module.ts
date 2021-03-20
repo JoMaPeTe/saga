@@ -36,6 +36,7 @@ import { ReservasUserComponent } from './reservas-user/reservas-user.component';
 import { PlanningComponent } from './planning/planning.component';
 import { ActivityListComponent } from './planning/activity-list/activity-list.component';
 import { ActivityComponent } from './planning/activity/activity.component';
+import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,9 +77,10 @@ import { ActivityComponent } from './planning/activity/activity.component';
      NbIconModule,
      NbChatModule,
      NbSpinnerModule,
+     AngularFireFunctionsModule,
 
   ],
-  providers: [AuthService, FireDBService, FirestorageService,AuthGuard ],
+  providers: [AuthService, FireDBService, FirestorageService,AuthGuard,{ provide: REGION, useValue: 'europe-west6' } ],
   bootstrap: [AppComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

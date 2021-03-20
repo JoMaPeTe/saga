@@ -21,6 +21,9 @@ export class UserComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
   }
+
+ 
+
   fillUsers(){
     this.userSubscription = this.db.getUsers().subscribe( snap => {
       this.users = [];
