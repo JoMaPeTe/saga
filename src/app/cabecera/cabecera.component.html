@@ -41,7 +41,7 @@
   <div *ngIf="auth.user | async as user; else login">
     <div *ngIf="user.emailVerified; else revise">
       <div class="userDiv mt-2 text-center ">
-        <div class="d-flex  align-items-center  ">
+        <div class="d-inline-flex  justify-content-center  ">
           {{ user.email }}
           <button
             class="btn btn-dark position-relative mx-1"
