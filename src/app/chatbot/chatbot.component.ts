@@ -29,6 +29,7 @@ export class ChatbotComponent implements OnInit {
     this.sessionId =
       Math.random().toString(36).slice(-5) + this.auth.getUserId();
     console.log('sesionID desde chatComponent  ' + this.sessionId);
+
     this.darkChat();
 
     this.auth.afAuth.onAuthStateChanged(() => {
@@ -38,11 +39,19 @@ export class ChatbotComponent implements OnInit {
 
   //Método para que si se toca el switch de modo oscuro, cambie el fondo del chat
   darkChat() {
+    const chat = document.getElementById('msg-inbox');
+    //Estado del switch cuando se inicia el chat
+    let switchDarkValue =this.auth.getSwitch().get('switch').value;
+    if(switchDarkValue){
+      chat.setAttribute('class', 'chat bg-dark  text-white')
+    }else{
+      chat.setAttribute('class', 'chat text-dark')
+    }
+    //Suscripción a cambios de estado del switch, después de iniciado el componente chat
     this.darkSubscription = this.auth
       .getSwitch()
       .get('switch')
       .valueChanges.subscribe((value) => {
-        const chat = document.getElementById('msg-inbox');
         if (value) {
           chat.setAttribute('class', 'chat bg-dark  text-white');
         } else {
