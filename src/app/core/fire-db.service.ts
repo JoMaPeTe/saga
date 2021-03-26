@@ -8,12 +8,11 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root',
 })
 export class FireDBService {
-  // activityList: AngularFireList<any>;
-
-  constructor(private db: AngularFireDatabase,
-    private fns:AngularFireFunctions,
-    private toastr: ToastrService) { }
-
+  constructor(
+    private db: AngularFireDatabase,
+    private fns: AngularFireFunctions,
+    private toastr: ToastrService
+  ) {}
 
   //Login
   updateUserData(user: any) {
@@ -31,19 +30,18 @@ export class FireDBService {
   //Admin functions (users CRUD)
   getUsers() {
     const path = 'users/';
-    //return this.db.list(path).valueChanges();
     return this.db.list(path).snapshotChanges();
   }
 
   removeUser(userUid: any) {
     let removeUser = null;
     if (confirm('Are you sure you want to delete')) {
-        const path = 'users/' + userUid;
-         removeUser= this.db.object(path).remove();
-        this.toastr.success('Success', 'Activity deleted');
-      }
-      return removeUser
+      const path = 'users/' + userUid;
+      removeUser = this.db.object(path).remove();
+      this.toastr.success('Success', 'User deleted');
     }
+    return removeUser;
+  }
 
   makeAdmin(user: any) {
     //añadimos al user en la base de datos de admins en Real Time
@@ -57,14 +55,17 @@ export class FireDBService {
       .catch((error) => console.log(error));
     //Hacemos la custom claim
     const addAdminRole = this.fns.httpsCallable('addAdminRole');
-     addAdminRole({email: user.email }).subscribe((result) => { this.toastr.success('', `${result.message}`);});
-
+    addAdminRole({ email: user.email }).subscribe((result) => {
+      this.toastr.success('', `${result.message}`);
+    });
   }
   removeAdmin(user: any) {
     const path = 'admins/' + user.key;
     this.db.object(path).remove();
-     const removeAdminRole = this.fns.httpsCallable('removeAdminRole');
-    removeAdminRole({email: user.email }).subscribe((result) => {  this.toastr.success('', `${result.message}`);});
+    const removeAdminRole = this.fns.httpsCallable('removeAdminRole');
+    removeAdminRole({ email: user.email }).subscribe((result) => {
+      this.toastr.success('', `${result.message}`);
+    });
   }
 
   //User Settings
@@ -96,7 +97,6 @@ export class FireDBService {
     return this.db.object(path).snapshotChanges();
   }
   removeReservation(userId: any) {
-
     const pathRes = `users/${userId}/Reserva/`;
     let activityReserved: Activity = new Activity();
     //Primero modificamos la actividad planificada para el usuario y luego la eliminamos de su página reserva
@@ -104,14 +104,13 @@ export class FireDBService {
       .list(pathRes)
       .snapshotChanges()
       .subscribe((item) => {
-
         item.forEach((element) => {
           let pay = element.payload.val();
           activityReserved[element.key] = pay;
         });
 
-        const message= `cancelada por ${userId}`;
-        this.updateActivity(activityReserved,message);
+        const message = `cancelada por ${userId}`;
+        this.updateActivity(activityReserved, message);
         this.db.object(pathRes).remove();
       });
   }
@@ -124,7 +123,7 @@ export class FireDBService {
 
     this.db
       .object(path)
-      .update(obj) //push a una list me permite varias horas iguales, tendría que añadirle una key
+      .update(obj) //Posible adaptación: usar push en vez de update, en una list me permitiría varias horas iguales, tendría que añadirle una key
       .catch((error) => console.log(error));
   }
   getActivities() {
@@ -138,10 +137,9 @@ export class FireDBService {
 
   updateActivity(activity: Activity, value: string) {
     const path = `actividad/${activity.type}/${activity.day}/`;
-    const key= activity.hour
-    const obj={};
-    obj[key]= value;
-
+    const key = activity.hour;
+    const obj = {};
+    obj[key] = value;
 
     this.db
       .object(path)

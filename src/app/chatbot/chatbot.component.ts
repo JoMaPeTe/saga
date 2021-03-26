@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../core/auth.service';
 import { Subscription } from 'rxjs';
 
-const dialogflowURL = 'https://europe-west6-saga-1f81f.cloudfunctions.net/dialogflowGateway'; //'https://YOUR-CLOUDFUNCTION/dialogflowGateway';
+const dialogflowURL =
+  'https://europe-west6-saga-1f81f.cloudfunctions.net/dialogflowGateway'; //'https://YOUR-CLOUDFUNCTION/dialogflowGateway';
 
 @Component({
   selector: 'app-chatbot',
@@ -20,9 +21,7 @@ export class ChatbotComponent implements OnInit {
   imageURL: any;
   darkSubscription: Subscription;
 
-  constructor(private http: HttpClient, public auth: AuthService) {
-    //  this.messages = this.chatShowcaseService.loadMessages();
-  }
+  constructor(private http: HttpClient, public auth: AuthService) {}
 
   ngOnInit(): void {
     this.addBotMessage('Presencia humana detectada 🤖. ¿Como puedo ayudarle? ');
@@ -41,11 +40,11 @@ export class ChatbotComponent implements OnInit {
   darkChat() {
     const chat = document.getElementById('msg-inbox');
     //Estado del switch cuando se inicia el chat
-    let switchDarkValue =this.auth.getSwitch().get('switch').value;
-    if(switchDarkValue){
-      chat.setAttribute('class', 'chat bg-dark  text-white')
-    }else{
-      chat.setAttribute('class', 'chat text-dark')
+    let switchDarkValue = this.auth.getSwitch().get('switch').value;
+    if (switchDarkValue) {
+      chat.setAttribute('class', 'chat bg-dark  text-white');
+    } else {
+      chat.setAttribute('class', 'chat text-dark');
     }
     //Suscripción a cambios de estado del switch, después de iniciado el componente chat
     this.darkSubscription = this.auth
@@ -96,7 +95,6 @@ export class ChatbotComponent implements OnInit {
       avatar: this.imageURL,
       date: new Date(),
     });
-
   }
 
   addBotMessage(text: string) {
@@ -107,6 +105,5 @@ export class ChatbotComponent implements OnInit {
         'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/robot-face.png',
       date: new Date(),
     });
-
   }
 }

@@ -6,7 +6,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./planning.component.css'],
 })
 export class PlanningComponent implements OnInit {
-  // al recuperar las actividades las iré insertando aquí
 
   constructor() {}
 

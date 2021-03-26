@@ -7,7 +7,6 @@ import { FireDBService } from './fire-db.service';
 import { ToastrService } from 'ngx-toastr';
 import { of, Subscription } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -22,7 +21,7 @@ export class AuthService implements OnInit {
   imageURL: any = null;
   darkForm: any;
   isLogged: boolean;
-  userId:string;
+  userId: string;
   constructor(
     public afAuth: AngularFireAuth, //atributo publico de la clase del tipo AngularFireAuth
     private router: Router,
@@ -39,9 +38,9 @@ export class AuthService implements OnInit {
       if (authState) {
         this.authUser = authState;
         this.isLogged = true;
-        this.userId=authState.uid;
-        this.authUser.getIdTokenResult().then(idTokenResult => {
-          this.authUser.admin =idTokenResult.claims.admin;
+        this.userId = authState.uid;
+        this.authUser.getIdTokenResult().then((idTokenResult) => {
+          this.authUser.admin = idTokenResult.claims.admin;
         });
         return this.authUser;
       } else {
@@ -111,7 +110,7 @@ export class AuthService implements OnInit {
         (res) => {
           console.log('user logado con mail: ', res.user.email);
           console.log(res.user.emailVerified);
-          this.userId=res.user.uid;
+          this.userId = res.user.uid;
           this.firedb.updateUserData(res.user);
           this.arrayAdmins = [''];
           this.isLogged = true;
@@ -136,7 +135,7 @@ export class AuthService implements OnInit {
       this.afAuth.signInWithPopup(provider).then(
         (res) => {
           console.log('user logado: ', res);
-          this.userId=res.user.uid;
+          this.userId = res.user.uid;
           this.firedb.updateUserData(res.user);
           this.arrayAdmins = [''];
           this.isLogged = true;
@@ -156,13 +155,10 @@ export class AuthService implements OnInit {
   logout() {
     console.log(this.authUser.email + ' logout!');
     this.router.navigate(['/']);
-    this.isLogged=false;
-    this.userId='';
+    this.isLogged = false;
+    this.userId = '';
     this.afAuth.signOut();
   }
-
-
-
 
   /**
    * TABLA USERS
@@ -182,13 +178,13 @@ export class AuthService implements OnInit {
       console.log('admins: ', this.arrayAdmins);
     });
   }
-/**
- * Comprueba si un user es admin en el array del metodo fillAdmins
- * que se rellenó a partir de la base de datos.
- * En la tabla users devolverá true, si el user es admin
- * @param val
- * @returns
- */
+  /**
+   * Comprueba si un user es admin en el array del metodo fillAdmins
+   * que se rellenó a partir de la base de datos.
+   * En la tabla users devolverá true, si el user es admin
+   * @param val
+   * @returns
+   */
   checkAdmin(val) {
     const isMatch = this.arrayAdmins.filter((obj) => obj.email == val);
     let res: boolean = false;
@@ -214,10 +210,7 @@ export class AuthService implements OnInit {
   getSwitch() {
     return this.darkForm;
   }
- getUserId() {
-  return this.userId;
-}
-
-
-
+  getUserId() {
+    return this.userId;
+  }
 }

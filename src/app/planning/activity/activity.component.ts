@@ -78,7 +78,6 @@ export class ActivityComponent implements OnInit {
       if (this.planningForm != null) {
    this.planningForm.reset({
     activityType: 'tenis'});
-   //this.createForm();
  }
 }
   /**

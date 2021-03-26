@@ -1,5 +1,4 @@
-
-import { Component,  OnInit, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../core/auth.service';
@@ -14,10 +13,7 @@ import { FirestorageService } from '../core/firestorage.service';
 export class CabeceraComponent implements OnInit {
   darkForm: FormGroup;
   imageURL: any = null;
-  // myUser: any;
-  // images: any[] = [];
-  // users: any[] = [];
-  // swithValue: boolean;
+
   constructor(
     public auth: AuthService,
     public db: FireDBService,
@@ -29,7 +25,6 @@ export class CabeceraComponent implements OnInit {
     this.createSwitch();
     this.darkLight();
     this.readURL();
-
   }
 
   createSwitch() {
@@ -42,10 +37,16 @@ export class CabeceraComponent implements OnInit {
     this.darkForm.get('switch').valueChanges.subscribe((value) => {
       if (value) {
         body.setAttribute('class', 'bg-dark text-white');
-        cabecera.setAttribute('class', 'navbar navbar-expand-md my-0 h5 bg-dark text-white');
+        cabecera.setAttribute(
+          'class',
+          'navbar navbar-expand-md my-0 h5 bg-dark text-white'
+        );
       } else {
         body.setAttribute('class', 'bg-img');
-        cabecera.setAttribute('class', 'navbar navbar-expand-md bg-primary my-0 h5');
+        cabecera.setAttribute(
+          'class',
+          'navbar navbar-expand-md bg-primary my-0 h5'
+        );
       }
     });
   }
@@ -53,7 +54,7 @@ export class CabeceraComponent implements OnInit {
   readURL() {
     this.auth.afAuth.onAuthStateChanged((user) => {
       if (user) {
-       this.auth.fillAdmins(); //permite mostrar a los admin el link a users
+        this.auth.fillAdmins(); //permite mostrar a los admin el link a users
         this.imageURL = this.db.getUserImage(user).pipe(
           map((data) => {
             console.log('DATA: ', data.payload.val());

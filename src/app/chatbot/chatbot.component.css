@@ -4,7 +4,7 @@
   margin-top: 4%;
   font-family: sans-serif;
   letter-spacing: 0.5px;
-  max-height:fit-content;
+  max-height: fit-content;
 }
 
 img {
@@ -17,7 +17,6 @@ img {
   width: 100%;
   height: 5em;
   border-bottom: none;
-  /* display: inline-block; */
   background-color: #007bff;
 }
 
@@ -50,8 +49,8 @@ img {
 
 .chat-page {
   padding: 0 0 23em 0;
-color: #646464;
-max-height:fit-content;
+  color: #646464;
+  max-height: fit-content;
 
 
 }
@@ -61,7 +60,7 @@ max-height:fit-content;
 .chat {
   padding: 2em 1em 0 1.5em;
   border: 1px solid #ccc;
-  overflow:scroll;
+  overflow: scroll;
   padding-bottom: 2em;
   background-color: #fff;
 }
@@ -80,39 +79,44 @@ max-height:fit-content;
 }
 
 
-.msg-bottom{
+.msg-bottom {
   position: block;
   height: 10vh;
   background-color: #007bff;
   display: flex;
   align-items: center;
 }
-::ng-deep .sender{
+
+::ng-deep .sender {
   font-size: small;
-  color:tomato;
+  color: tomato;
 }
 
-::ng-deep svg{
+::ng-deep svg {
 
-  width:100%;
+  width: 100%;
 }
-::ng-deep .message-row{
+
+::ng-deep .message-row {
   flex-flow: column;
-  justify-content:space-between;
+  justify-content: space-between;
   text-align: center;
 
 }
+
 ::ng-deep nb-layout-column {
   justify-content: center;
   display: flex;
 
 }
-::ng-deep .send-button{
+
+::ng-deep .send-button {
   width: 80%;
   height: 40%;
 
 }
-::ng-deep .message-row > input{
-  width: 90%!important;
+
+::ng-deep .message-row>input {
+  width: 90% !important;
   margin-bottom: 2px;
 }

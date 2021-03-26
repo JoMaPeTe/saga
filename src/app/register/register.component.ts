@@ -48,16 +48,13 @@ export class RegisterComponent implements OnInit {
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
-          //alert('Contraseña no válida');
           this.toastr.error(' Email ya en uso ', 'ERROR REGISTRO');
         } else if (error.code === 'auth/weak-password') {
-          // alert('El usuario no existe');
           this.toastr.error(
             'La contraseña debe tener al menos 6 caracteres',
             'ERROR REGISTRO'
           );
         } else if (error.code === 'auth/invalid-email') {
-          //alert('Formato de email no valido');
           this.toastr.error('Formato de email no válido', 'ERROR REGISTRO');
         } else {
           console.log(error);

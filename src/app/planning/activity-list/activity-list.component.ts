@@ -3,7 +3,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 import { FireDBService } from 'src/app/core/fire-db.service';
-//Activity class
 import { Activity } from '../../models/activity.model';
 @Component({
   selector: 'activity-list',
@@ -36,14 +35,16 @@ export class ActivityListComponent implements OnInit, OnDestroy {
   }
 
   updateActivity(activity: Activity) {
-    const esLibre =this.activities.find((item)=>item == activity);
-    console.log(esLibre.value)
-    if (esLibre.value!="libre") {
+    const esLibre = this.activities.find((item) => item == activity);
+    console.log(esLibre.value);
+    if (esLibre.value != 'libre') {
       if (confirm('Are you sure you want to release this activity?')) {
         this.db.updateActivity(activity, 'libre');
         this.toastr.success('Success', 'Activity released');
-      }else{ this.toastr.info('OK', 'Take your time'); }
-    }else{
+      } else {
+        this.toastr.info('OK', 'Take your time');
+      }
+    } else {
       this.toastr.info('Really Jorge??', 'That activity was already released');
     }
   }
