@@ -3,7 +3,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Activity } from '../models/activity.model';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { ToastrService } from 'ngx-toastr';
-
+import { take } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
@@ -102,7 +102,7 @@ export class FireDBService {
     //Primero modificamos la actividad planificada para el usuario y luego la eliminamos de su página reserva
     this.db
       .list(pathRes)
-      .snapshotChanges()
+      .snapshotChanges().pipe(take(1))
       .subscribe((item) => {
         item.forEach((element) => {
           let pay = element.payload.val();
