@@ -100,7 +100,7 @@ export class FireDBService {
     const pathRes = `users/${userId}/Reserva/`;
     let activityReserved: Activity = new Activity();
     //Primero modificamos la actividad planificada para el usuario y luego la eliminamos de su página reserva
-    this.db
+    return this.db
       .list(pathRes)
       .snapshotChanges().pipe(take(1))
       .subscribe((item) => {
